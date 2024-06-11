@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Oleo+Script+Swash+Caps:wght@400;700&display=swap"
+        rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Aboreto&family=David+Libre:wght@400;500;700&family=Sofia&display=swap"
+        rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Aboreto&family=David+Libre:wght@400;500;700&family=Kablammo&family=Sofia&display=swap"
+        rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Oregano:ital@0;1&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="./style.css">
+    <link rel="icon" href="./assets/figure.png">
+    <title>Bizarro</title>
+</head>
+
+<body>
+    <header>
+        <a href="./index.html">
+            <div id="logo">
+                    <img src="./assets/figure.png" id="figura">
+                    <h1 id="nome">BIZARRO</h1>
+            </div>
+        </a>
+
+        <a href="./catalogo.html"><div id="Search">
+            <input id="textSearch" type="text" placeholder="Procure por qualquer coisa!">
+            <img src="./assets/search.svg" id="lupa">
+        </div></a>
+
+        <div id="acesso">
+            <a href="./carrinho.html"><img src="./assets/cart3.svg" class="carrinhoECurtidos" id="carrinho"></a>
+            <a href="./curtidos.html"><img src="./assets/heart-fill.svg" class="carrinhoECurtidos"></a>
+        </div>
+    </header>
+
+    <main>
+        <div id="carouselExampleInterval" class="carousel slide" data-bs-ride="carousel">
+            <div class="carousel-inner">
+                <div class="carousel-item active" data-bs-interval="10000">
+                    <div id="promocao">
+                        <div id="containerPromocao">
+                            <h1 id="titulo">PROMOÇÃO!</h1>
+                            <p id="texto">Compre um pão mágico e ganhe um presente <br>
+                                <i>misterioso</i>!
+                            </p>
+                        </div>
+                        <img src="./produtos/pao.png" alt="" id="imgPromocao">
+                    </div>
+                </div>
+                <div class="carousel-item" data-bs-interval="2000">
+                    <div id="fundo"></div>
+                        <div id="containerDesconto">
+                            <h1 id="tituloDesconto">Produtos com Desconto!</h1> 
+                            <p id="subDesconto">Ate 15% de desconto SÓ HOJE!</p>
+                            <ul>
+                               <div class="ProDes">
+                                    <a href="./produto.html">
+                                        <li>
+                                            <div class="produto produtoCatalogo" id="pai" data-nome="Pai Ausente" data-imagem="./assets/produtos/pai ausente.jpeg" data-valor="R$180,00" data-descricao="Um produto que simboliza a ausência paterna. Presenteie seu amigo que não tem uma figura paterna!">
+                                                <img src="./produtos/pai ausente.jpeg" class="imgCatalogo">
+                                                <h1>Pai Ausente</h1>
+                                                <div class="precos">
+                                                    <h3>R$180,00</h3>
+                                                    <h6><u>De R$1.200,00</u></h6>                                          
+                                                </div>
+                                                <div class="produtoCarrinhoCurtidos">
+                                                    <img src="./assets/cart-plus-fill.svg">
+                                                    <img src="./assets/heart.svg" alt="">                                                    
+                                                </div>
+
+                                            </div>
+                                        </li>
+                                    </a> 
+                                    <a href="./produto.html">
+                                        <li>
+                                            <div class="produto produtoCatalogo" id="ovo" data-nome="Ovo Pré-quebrado" data-imagem="./produtos/ovo pre quebrado.jpg" data-valor="R$101,85" data-descricao="Um ovo que já vem pré-quebrado, pronto para ser usado em receitas sem a necessidade de quebrá-lo">
+                                                <img src="./produtos/ovo pre quebrado.jpg" class="imgCatalogo">
+                                                <h1>Ovo Pré-quebrado</h1>
+                                                <div class="precos">
+                                                    <h3>R$101,85</h3>
+                                                    <h6><u>De R$679,00</u></h6>
+                                                </div>   
+                                                <div class="produtoCarrinhoCurtidos">
+                                                    <img src="./assets/cart-plus-fill.svg">
+                                                    <img src="./assets/heart.svg" alt="">                                                    
+                                                </div>
+                                            </div>
+                                        </li>
+                                    </a> 
+                                    <a href="./produto.html">
+                                        <li>
+                                            <div class="produto produtoCatalogo" id="oxigenio" data-nome="Oxigênio Engarrafado" data-imagem="./produtos/oxigenio engarrafado.jpeg" data-valor="R$420,00" data-descricao="Oxigênio em uma garrafa, respire ar puro de verdade.">
+                                                <img src="./produtos/oxigenio engarrafado.jpeg" class="imgCatalogo">
+                                                <h1>Oxigênio Engarrafado</h1>
+                                                <div class="precos">
+                                                    <h3>R$420,00</h3>
+                                                    <h6><u>De R$2.880,00</u></h6>    
+                                                </div>
+                                                <div class="produtoCarrinhoCurtidos">
+                                                    <img src="./assets/cart-plus-fill.svg">
+                                                    <img src="./assets/heart.svg" alt="">                                                    
+                                                </div>
+                                            </div>
+                                        </li>
+                                    </a>                                
+                            </ul>
+  
+                                </div>
+                        </div>                          
+                    </div>               
+                </div>
+            </div>
+        </div>        
+            <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleInterval"
+                data-bs-slide="prev">
+                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Previous</span>
+            </button>
+            <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleInterval"
+                data-bs-slide="next">
+                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Next</span>
+            </button>
+        </div>
+
+        <div id="info">
+            <a href="./socorro.html">
+                <div class="dados">
+                    <img src="./assets/person-circle.svg" alt="">
+                    <p>Minha conta</p>
+                </div>
+            </a>
+
+            <a href="./socorro.html">
+                <div class="dados">
+                    <img src="./assets/geo-alt-fill.svg" alt="">
+                    <p>Minha localização</p>
+                </div>
+            </a>
+
+            <a href="./socorro.html"></a>
+                <div class="dados">
+                    <img src="./assets/credit-card-2-back.svg" alt="">
+                    <p>Formas de pagamento</p>
+                </div>
+            </a>
+
+        </div>
+        <div id="produtosHoje">
+            <h1>Produtos de Hoje!</h1>
+            <button id="botaoCatalogo">
+                <a href="catalogo.html">
+                    <img src="assets/chevron-double-down.svg" alt="">
+                </a>
+            </button>
+
+        </div>
+
+        <ul id="lista">
+            <a href="./produto.html">
+                <li>
+                    <div class="produto" id="fantasmas" data-nome="Fantasminhas ajudantes personalizdos" data-imagem="./produtos/fantasminhas 2.jpeg" data-valor="R$100,00" data-descricao="Pequenos fantasmas que oferecem ajuda personalizada em diversas situações do dia a dia, desde encontrar chaves perdidas até lembrar compromissos.">
+                        <img src="./produtos/fantasminhas 2.jpeg" class="produtoImg">
+                        <p>Fantasminhas ajudantes personalizados</p>
+                        <p><b>R$100,00</b></p>
+                        <div class="produtoCarrinhoCurtidos">
+                            <img src="./assets/cart-plus-fill.svg">
+                            <img src="./assets/heart.svg">                                                    
+                        </div>
+                    </div>
+                </li>
+            </a>
+
+            <a href="./produto.html">
+                <li>
+                    <div class="produto" id="Bizarro" data-nome="Bizarro" data-imagem="./produtos/bezerro bizarro.jpeg" data-valor="R$450,00" data-descricao="Compre um Bizarro.">
+                        <img src="./produtos/bezerro bizarro.jpeg" class="produtoImg">
+                        <p>Bizarro</p>
+                        <p><b>R$450,00</b></p>
+                        <div class="produtoCarrinhoCurtidos">
+                            <img src="./assets/cart-plus-fill.svg">
+                            <img src="./assets/heart.svg" alt="">                                                    
+                        </div>  
+                    </div>
+                </li>
+            </a>
+            <a href="./produto.html">
+                <li>
+                    <div class="produto" id="grama" data-nome="Grama de alfinete" data-imagem="./produtos/grama de alfinete.jpeg" data-valor="R$150,00" data-descricao="Uma grama artificial feita de pequenos alfinetes, para quem gosta de sensações táteis incomuns.">
+                        <img src="./produtos/grama de alfinete.jpeg"  class="produtoImg">
+                        <p>Grama de alfinete</p>
+                        <p><b>R$150,00</b> p/alfinete</p>
+                        <div class="produtoCarrinhoCurtidos">
+                            <img src="./assets/cart-plus-fill.svg">
+                             <img src="./assets/heart.svg" alt="">                                                    
+                        </div>            
+                    </div>
+                </li>
+            </a>
+        </ul>
+    </main>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
+        crossorigin="anonymous"></script>
+    <script src="./script.js"></script>
+    <script src="./script-catalogo.js"></script>
+    <script src="./script-index.js"></script>
+</body>
+
+</html>

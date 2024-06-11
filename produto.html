@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Oleo+Script+Swash+Caps:wght@400;700&display=swap"
+        rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Aboreto&family=David+Libre:wght@400;500;700&family=Sofia&display=swap"
+        rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Aboreto&family=David+Libre:wght@400;500;700&family=Kablammo&family=Sofia&display=swap"
+        rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Oregano:ital@0;1&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="./style.css">
+    <link rel="icon" href="./assets/figure.png">
+    <title>Bizarro</title>
+</head>
+
+<body>
+    <header>
+        <a href="./index.html">
+            <div id="logo">
+                    <img src="./assets/figure.png" id="figura">
+                    <h1 id="nome">BIZARRO</h1>
+            </div>
+        </a>
+
+        <a href="./catalogo.html"><div id="Search">
+            <input id="textSearch" type="text" placeholder="Procure por qualquer coisa!">
+            <img src="./assets/search.svg" id="lupa">
+        </div></a>
+
+        <div id="acesso">
+            <a href="./carrinho.html"><img src="./assets/cart3.svg" class="carrinhoECurtidos" id="carrinho"></a>
+            <a href="./curtidos.html"><img src="./assets/heart-fill.svg" class="carrinhoECurtidos"></a>
+        </div>
+    </header>
+
+    <main class="main-produto">
+        <a href="./catalogo.html" id="ir-catalogo">Voltar para o Catalogo</a>
+        <div class="containerProduto">
+            <div class="produtoBase">
+                <img src="./produtos/base produto.png" alt="foto-produto" id="img-produto">
+                <a href="./carrinho.html"><button id="add-carrinho">Adicionar ao Carrinho</button></a>
+            </div>
+            <div class="produtoNome">
+                <h2 id="nome-produto">Nome do Produto</h2>
+                <h1 id="valor-produto">R$0</h1>
+            </div>
+            
+            <div class="produtoDesc">
+                <a href="./curtidos.html"><button id="add-curtidos"><img src="./assets/heart.svg" alt="gosto"></button></a>
+                <h3 id="descricao">Lorem ipsum dolor sit amet consectetur adipisicing elit. Tempora illo provident corrupti vitae quisquam, repellat quam quia rem.</h3>
+            </div>
+        </div>
+    </main>
+
+    <script src="./script-produto.js"></script>
+</body>
+
+</html>

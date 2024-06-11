@@ -1,0 +1,610 @@
+<!DOCTYPE html>
+<html lang="en">
+
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Oleo+Script+Swash+Caps:wght@400;700&display=swap"
+            rel="stylesheet">
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link
+            href="https://fonts.googleapis.com/css2?family=Aboreto&family=David+Libre:wght@400;500;700&family=Sofia&display=swap"
+            rel="stylesheet">
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link
+            href="https://fonts.googleapis.com/css2?family=Aboreto&family=David+Libre:wght@400;500;700&family=Kablammo&family=Sofia&display=swap"
+            rel="stylesheet">
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
+            integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Oregano:ital@0;1&display=swap" rel="stylesheet">
+        <link rel="stylesheet" href="./style.css">
+        <link rel="icon" href="./assets/figure.png">
+        <title>Bizarro</title>
+    </head>
+
+    <body>
+        <header>
+            <a href="./index.html">
+                <div id="logo">
+                        <img src="./assets/figure.png" id="figura">
+                        <h1 id="nome">BIZARRO</h1>
+                </div>
+            </a>
+
+            <div id="Search">
+                <input id="textSearch" type="text" placeholder="Procure por qualquer coisa!">
+                <img src="./assets/search.svg" id="lupa">
+            </div>
+
+            <div id="acesso">
+                <a href="./carrinho.html"><img src="./assets/cart3.svg" class="carrinhoECurtidos" id="carrinho"></a>
+                <a href="./curtidos.html"><img src="./assets/heart-fill.svg" class="carrinhoECurtidos"></a>
+            </div>
+        </header>
+
+        <main>
+            <div id="title">
+                <h1 id="catalogoTitulo">Catálogo de produtos</h1>
+                <hr id="linhaCatalogo">
+            </div>
+            <ul id="listaCatalogo">
+                <a href="./produto.html">
+                    <li>
+                        <div class="produto produtoCatalogo" id="Pães" data-nome="Pães mágicos com diversos efeitos mágicos" data-imagem="./produtos/paes magicos coloridos.png" data-valor="R$59,90" data-descricao="Pães que, ao serem consumidos, concedem diferentes efeitos mágicos aos seus consumidores, como invisibilidade temporária, capacidade de voar, entre outros.">
+                            <img src="./produtos/paes magicos coloridos.png" class="imgCatalogo">
+                            <p>Pães mágicos com diversos efeitos mágicos</p>
+                            <div class="precos">
+                                <h3>R$59,90</h3>
+                            </div>
+                            <div class="produtoCarrinhoCurtidos">
+                                <img src="./assets/cart-plus-fill.svg">
+                                <img src="./assets/heart.svg">
+                            </div>
+                        </div>
+                    </li>
+                </a>
+                <a href="./produto.html">
+                    <li>
+                        <div class="produto produtoCatalogo" id="cavalos" data-nome="Gang de cavalos ninjas" data-imagem="./produtos/cavalos.png" data-valor="R$1.250,00" data-descricao="Uma equipe de cavalos treinados nas artes ninja, prontos para realizar missões secretas e ágeis como o vento.">
+                            <img src="./produtos/cavalos.png" class="imgCatalogo">
+                            <p>Gang de cavalos ninjas</p>
+                            <div class="precos">
+                                <h3>R$1.250,00</h3>
+                            </div>
+                            <div class="produtoCarrinhoCurtidos">
+                                <img src="./assets/cart-plus-fill.svg" id="carrinho">
+                                <img src="./assets/heart.svg">
+                            </div>
+                        </div>
+                    </li>
+                </a>
+                <a href="./produto.html">
+                    <li>
+                        <div class="produto produtoCatalogo" id="luva" data-nome="Uma luva (com areia dentro)" data-imagem="./produtos/luva.jpeg" data-valor="R$120,00" data-descricao="Como se sentir menos sozinho: Uma luva que contém areia dentro, projetada para dar conforto e companhia, ajudando a pessoa a se sentir menos sozinha.">
+                            <img src="./produtos/luva.jpeg" class="imgCatalogo">
+                            <p>Uma luva (com areia dentro)</p>
+                            <div class="precos">
+                                <h3>R$120,00</h3>
+                            </div>
+                            <div class="produtoCarrinhoCurtidos">
+                                <img src="./assets/cart-plus-fill.svg" id="carrinho">
+                                <img src="./assets/heart.svg">
+                            </div>
+                        </div>
+                    </li>
+                </a>
+                <a href="./produto.html">
+                    <li>
+                        <div class="produto produtoCatalogo" id="kazoo" data-nome="Kazoo" data-imagem="./produtos/kazoo.png" data-valor="R$75,00" data-descricao="Um kazoo especialmente projetado para tocar músicas de funeral de forma respeitosa e solene.">
+                            <img src="./produtos/kazoo.png" class="imgCatalogo">
+                            <p>Kazoo de funeral</p>
+                            <div class="precos">
+                                <h3>R$75,00</h3>
+                            </div>
+                            <div class="produtoCarrinhoCurtidos">
+                                <img src="./assets/cart-plus-fill.svg" id="carrinho">
+                                <img src="./assets/heart.svg">
+                            </div>
+                        </div>
+                    </li>
+                </a>
+                <a href="./produto.html">
+                    <li>
+                        <div class="produto produtoCatalogo" id="Sapato" data-nome="Sapato de suporte emocional" data-imagem="./produtos/sapato de suporte emocional.jpeg" data-valor="R$57,90" data-descricao="Um sapato que oferece suporte emocional, proporcionando conforto e estabilidade emocional durante momentos difíceis.">
+                            <img src="./produtos/sapato de suporte emocional.jpeg" class="imgCatalogo">
+                            <p>Sapato de suporte emocional</p>
+                            <div class="precos">
+                                <h3>R$57,90</h3>
+                            </div>
+                            <div class="produtoCarrinhoCurtidos">
+                                <img src="./assets/cart-plus-fill.svg">
+                                <img src="./assets/heart.svg" alt="">
+                            </div>
+                        </div>
+                    </li>
+                </a>
+                <a href="./produto.html">
+                    <li>
+                        <div class="produto produtoCatalogo" id="Pretzels" data-nome="Réguas no formato de pretzels de diferentes tamanhos" data-imagem="./produtos/pretzels.jpeg" data-valor="R$40,00" data-descricao="Réguas divertidas em forma de pretzels, perfeitas para quem gosta de objetos de papelaria diferentes e criativos.">
+                            <img src="./produtos/pretzels.jpeg" class="imgCatalogo">
+                            <p>Réguas no formato de pretzels de diferentes tamanhos</p>
+                            <div class="precos">
+                                <h3>R$40,00</h3>
+                            </div>
+                            <div class="produtoCarrinhoCurtidos">
+                                <img src="./assets/cart-plus-fill.svg">
+                                <img src="./assets/heart.svg" alt="">
+                            </div>
+                        </div>
+                    </li>
+                </a>
+                <a href="./produto.html">
+                    <li>
+                        <div class="produto produtoCatalogo" id="mansao" data-nome="Mansão para tartarugas" data-imagem="./produtos/mansao para tartarugas.jpeg" data-valor="R$100.500,00" data-descricao="Uma miniatura de uma mansão luxuosa projetada especialmente para tartarugas de estimação, com todos os confortos e luxos que elas merecem.">
+                            <img src="./produtos/mansao para tartarugas.jpeg" class="imgCatalogo">
+                            <p>Mansão para tartarugas</p>
+                            <div class="precos">
+                                <h3>R$100.500,00</h3>
+                            </div>
+                            <div class="produtoCarrinhoCurtidos">
+                                <img src="./assets/cart-plus-fill.svg">
+                                <img src="./assets/heart.svg" alt="">
+                            </div>
+                        </div>
+                    </li>
+                </a>
+                <a href="./produto.html">
+                    <li>
+                        <div class="produto produtoCatalogo" id="tranca" data-nome="Tranca de porta de massinha de modelar" data-imagem="./produtos/tranca de porta de massinha de modelar.jpeg" data-valor="R$10,00" data-descricao="Uma tranca de porta feita de massinha de modelar, que pode ser moldada de acordo com a vontade do usuário.">
+                            <img src="./produtos/tranca de porta de massinha de modelar.jpeg" class="imgCatalogo">
+                            <p>Tranca de porta de massinha de modelar</p>
+                            <div class="precos">
+                                <h3>R$10,00</h3>
+                            </div>
+                            <div class="produtoCarrinhoCurtidos">
+                                <img src="./assets/cart-plus-fill.svg">
+                                <img src="./assets/heart.svg" alt="">
+                            </div>
+                        </div>
+                    </li>
+                </a>
+                <a href="./produto.html">
+                    <li>
+                        <div class="produto produtoCatalogo" id="telha" data-nome="Telha de Papel" data-imagem="./produtos/telha de papel.jpeg" data-valor="R$220,50" data-descricao="Uma telha feita de papel, ideal para proteção da sua casa ou de qualquer imóvel proporcionando um material leve e maleável.">
+                            <img src="./produtos/telha de papel.jpeg" class="imgCatalogo">
+                            <p>Telha de papel</p>
+                            <div class="precos">
+                                <h3>R$220,50</h3>
+                            </div>
+                            <div class="produtoCarrinhoCurtidos">
+                                <img src="./assets/cart-plus-fill.svg">
+                                <img src="./assets/heart.svg" alt="">
+                            </div>
+                        </div>
+                    </li>
+                </a>
+                <a href="./produto.html">
+                    <li>
+                        <div class="produto produtoCatalogo" id="celulas" data-nome="Células de ornitorrinco" data-imagem="./produtos/celulas.jpeg" data-valor="R$699,99" data-descricao="Células coletadas de ornitorrincos, com propriedades únicas e interessantes para a ciência.">
+                            <img src="./produtos/celulas.jpeg" class="imgCatalogo">
+                            <p>Células de ornitorrinco</p>
+                            <div class="precos">
+                                <h3>R$699,99</h3>
+                            </div>
+                            <div class="produtoCarrinhoCurtidos">
+                                <img src="./assets/cart-plus-fill.svg">
+                                <img src="./assets/heart.svg" alt="">
+                            </div>
+                        </div>
+                    </li>
+                </a>
+                <a href="./produto.html">
+                    <li>
+                        <div class="produto produtoCatalogo" id="pneu" data-nome="Um pneu amigo" data-imagem="./produtos/pneu amigo.png" data-valor="R$200,00" data-descricao="Um pneu que, de alguma forma, é amigável ou interativo. Talvez com um rosto ou personalidade própria, tudo depende da sua imaginação.">
+                            <img src="./produtos/pneu amigo.png" class="imgCatalogo">
+                            <p>Um pneu amigo</p>
+                            <div class="precos">
+                                <h3>R$200,00</h3>
+                            </div>
+                            <div class="produtoCarrinhoCurtidos">
+                                <img src="./assets/cart-plus-fill.svg">
+                                <img src="./assets/heart.svg" alt="">
+                            </div>
+                            \
+                        </div>
+                    </li>
+                </a>
+                <a href="./produto.html">
+                    <li>
+                        <div class="produto produtoCatalogo" id="gritos" data-nome="Gritos de smurf" data-imagem="./produtos/raccoon.jpeg" data-valor="R$3.230,00" data-descricao="Gritos coletados de smurfs reais embalados em um saco.">
+                            <img src="./produtos/grito smurf.jpeg" class="imgCatalogo">
+                            <p>Gritos de smurf</p>
+                            <div class="precos">
+                                <h3>R$3.230</h3>
+                            </div>
+                            <div class="produtoCarrinhoCurtidos">
+                                <img src="./assets/cart-plus-fill.svg">
+                                <img src="./assets/heart.svg" alt="">
+                            </div>
+                        </div>
+                    </li>
+                </a>
+                <a href="./produto.html">
+                    <li>
+                        <div class="produto produtoCatalogo" id="caboclo" data-nome="O caboclo" data-imagem="./produtos/caboclo.jpeg" data-valor="R$75,90" data-descricao="Um livro misterioso, relacionado à lendas/casos de desaparecimentos.">
+                            <img src="./produtos/caboclo.jpeg" class="imgCatalogo">
+                            <p>O caboclo</p>
+                            <div class="precos">
+                                <h3>R$75,90</h3>
+                            </div>
+                            <div class="produtoCarrinhoCurtidos">
+                                <img src="./assets/cart-plus-fill.svg">
+                                <img src="./assets/heart.svg" alt="">
+                            </div>
+                        </div>
+                    </li>
+                </a>
+
+                <a href="./produto.html">
+                    <li>
+                        <div class="produto produtoCatalogo" id="agua" data-nome="Água de banho do Andrei" data-imagem="./produtos/agua.png" data-valor="R$6.087,00" data-descricao="Uma garrafa contendo água que supostamente foi utilizada no banho de Andrei, professor de técnico icônico do Senac SL.">
+                            <img src="./produtos/agua.png" class="imgCatalogo">
+                            <p>Água de banho do Andrei</p>
+                            <div class="precos">
+                                <h3>R$6.087,00</h3>
+                            </div>
+                            <div class="produtoCarrinhoCurtidos">
+                                <img src="./assets/cart-plus-fill.svg">
+                                <img src="./assets/heart.svg" alt="">
+                            </div>
+                        </div>
+                    </li>
+                </a>
+
+                <a href="">
+                    <li class="produto produtoCatalogo" id="windows" data-nome="Wallpaper de windows 10" data-imagem="./produtos/windows 10.png" data-valor="R$20,00" data-descricao="Fundo de tela de computador que com a interface do Windows 10, para fãs do sistema operacional.">
+                        <div>
+                            <img src="./produtos/windows 10.png" class="imgCatalogo">
+                            <p>Wallpaper de windows 10</p>
+                            <div class="precos">
+                                <h3>R$20,00</h3>
+                            </div>
+                            <div class="produtoCarrinhoCurtidos">
+                                <img src="./assets/cart-plus-fill.svg">
+                                <img src="./assets/heart.svg" alt="">
+                            </div>
+                        </div>
+                    </li>
+                </a>
+
+                <a href="./produto.html">
+                    <li>
+                        <div class="produto produtoCatalogo" id="carregador" data-nome="Carregador de batata para bola de vôlei" data-imagem="./produtos/batata.jpeg" data-valor="R$89,50" data-descricao="Uma batata capaz de carregar a bateria de sua bola de vôlei.">
+                            <img src="./produtos/batata.jpeg" class="imgCatalogo">
+                            <p>Carregador de batata para bola de vôlei</p>
+                            <div class="precos">
+                                <h3>R$89,50</h3>
+                            </div>
+                            <div class="produtoCarrinhoCurtidos">
+                                <img src="./assets/cart-plus-fill.svg">
+                                <img src="./assets/heart.svg" alt="">
+                            </div>
+                        </div>
+                    </li>
+                </a>
+                <a href="./produto.html">
+                    <li>
+                        <div class="produto produtoCatalogo" id="presente" data-nome="Presente misteriosamente secreto" data-imagem="./produtos/presente misterioso.jpeg" data-valor="R$???" data-descricao="Um presente que é misteriosamente secreto, revelando seu conteúdo apenas após ser aberto.">
+                            <img src="./produtos/presente misterioso.jpeg" class="imgCatalogo">
+                            <p>Presente misteriosamente secreto</p>
+                            <div class="precos">
+                                <h3>R$???</h3>
+                            </div>
+                            <div class="produtoCarrinhoCurtidos">
+                                <img src="./assets/cart-plus-fill.svg">
+                                <img src="./assets/heart.svg" alt="">
+                            </div>
+                        </div>
+                    </li>
+                </a>
+                <a href="./produto.html">
+                    <li>
+                        <div class="produto produtoCatalogo" id="terra" data-nome="1 bloco de terra podre" data-imagem="./produtos/terra podre.jpeg" data-valor="R$0,50" data-descricao="Um bloco de terra que está podre e fedendo.">
+                            <img src="./produtos/terra podre.jpeg" class="imgCatalogo">
+                            <p>1 bloco de terra podre</p>
+                            <div class="precos">
+                                <h3>R$0,50</h3>
+                            </div>
+                            <div class="produtoCarrinhoCurtidos">
+                                <img src="./assets/cart-plus-fill.svg">
+                                <img src="./assets/heart.svg" alt="">
+                            </div>
+                        </div>
+                    </li>
+
+                </a>
+                <a href="./produto.html">
+                    <li>
+                        <div class="produto produtoCatalogo" id="Tempestade" data-nome="Tempestade de areia preta na garrafa" data-imagem="./produtos/tempestade.jpeg" data-valor="R$1.235,50" data-descricao="Uma garrafa contendo uma tempestade de areia preta em miniatura, perfeito para ter bons sonhos.">
+                            <img src="./produtos/tempestade.jpeg" class="imgCatalogo">
+                            <p>Tempestade de areia preta na garrafa</p>
+                            <div class="precos">
+                                <h3>R$1.235,50</h3>
+                            </div>
+                            <div class="produtoCarrinhoCurtidos">
+                                <img src="./assets/cart-plus-fill.svg">
+                                <img src="./assets/heart.svg" alt="">
+                            </div>
+                        </div>
+                    </li>
+                </a>
+                <a href="">
+                    <li>
+                        <div class="produto produtoCatalogo" id="pombo" data-nome="Pombo de ouro de prata" data-imagem="./produtos/pombo.jpeg" data-valor="R$5.350,00" data-descricao="O pombo de Ouro da Saga de Harry Potter, porém feito de prata.">
+                            <img src="./produtos/pombo.jpeg" class="imgCatalogo">
+                            <p>Pombo de ouro de prata</p>
+                            <div class="precos">
+                                <h3>R$5.350</h3>
+                            </div>
+                            <div class="produtoCarrinhoCurtidos">
+                                <img src="./assets/cart-plus-fill.svg">
+                                <img src="./assets/heart.svg" alt="">
+                            </div>
+                        </div>
+                    </li>
+                </a>
+                <a href="./produto.html">
+                    <li>
+                        <div class="produto produtoCatalogo" id="lareira" data-nome="Lareira que esfria" data-imagem="./produtos/lareira.jpeg" data-valor="R$430,00" data-descricao="Uma lareira que, ao invés de aquecer, resfria o ambiente.">
+                            <img src="./produtos/lareira.jpeg" class="imgCatalogo">
+                            <p>Lareira que esfria</p>
+                            <div class="precos">
+                                <h3>R$430,00</h3>
+                            </div>
+                            <div class="produtoCarrinhoCurtidos">
+                                <img src="./assets/cart-plus-fill.svg">
+                                <img src="./assets/heart.svg" alt="">
+                            </div>
+                        </div>
+                    </li>
+                </a>
+                <a href="./produto.html">
+                    <li>
+                        <div class="produto produtoCatalogo" id="muppets" data-nome="Restos dos Muppets" data-imagem="./produtos/mupppets.jpeg" data-valor="R$5.500,00" data-descricao="Fragmentos dos Muppets, personagens famosos do entretenimento.">
+                            <img src="./produtos/muppets.jpeg" class="imgCatalogo">
+                            <p>Restos dos Muppets</p>
+                            <div class="precos">
+                                <h3>R$5.500,00</h3>
+                            </div>
+                            <div class="produtoCarrinhoCurtidos">
+                                <img src="./assets/cart-plus-fill.svg">
+                                <img src="./assets/heart.svg" alt="">
+                            </div>
+                        </div>
+                    </li>
+                </a>
+                <a href="./produto.html">
+                    <li>
+                        <div class="produto produtoCatalogo" id="abobora" data-nome="Abóbora que parece e tem gosto de maracujá" data-imagem="./produtos/abobora.png" data-valor="R$50,00" data-descricao="Uma abóbora com sabor e aparência de maracujá, uma combinação inusitada de sabores e texturas.">
+                            <img src="./produtos/abobora.png" class="imgCatalogo">
+                            <p>Abóbora que parece e tem gosto de maracujá</p>
+                            <div class="precos">
+                                <h3>R$50,00</h3>
+                            </div>
+                            <div class="produtoCarrinhoCurtidos">
+                                <img src="./assets/cart-plus-fill.svg">
+                                <img src="./assets/heart.svg" alt="">
+                            </div>
+                        </div>
+                    </li>
+                </a>
+                <a href="./produto.html">
+                    <li>
+                        <div class="produto produtoCatalogo" id="copo" data-nome="Copo furado" data-imagem="./produtos/copo.jpeg" data-valor="R$20,00" data-descricao="Um copo com diversos furos no seu corpo, para que o líquido possa sair.">
+                            <img src="./produtos/copo.jpeg" class="imgCatalogo">
+                            <p>Copo furado</p>
+                            <div class="precos">
+                                <h3>R$20,00</h3>
+                            </div>
+                            <div class="produtoCarrinhoCurtidos">
+                                <img src="./assets/cart-plus-fill.svg">
+                                <img src="./assets/heart.svg" alt="">
+                            </div>
+                        </div>
+                    </li>
+                </a>
+                <a href="./produto.html">
+                    <li>
+                        <div class="produto produtoCatalogo" id="triturador" data-nome="Triturador de dinheiro" data-imagem="./produtos/triturador.jpeg" data-valor="R$200,00" data-descricao="Um dispositivo capaz de triturar todo o seu dinheiro, produzindo confetes.">
+                            <img src="./produtos/triturador.jpeg" class="imgCatalogo">
+                            <p>Triturador de dinheiro</p>
+                            <div class="precos">
+                                <h3>R$200,00</h3>
+                            </div>
+                            <div class="produtoCarrinhoCurtidos">
+                                <img src="./assets/cart-plus-fill.svg">
+                                <img src="./assets/heart.svg" alt="">
+                            </div>
+                        </div>
+                    </li>
+                </a>
+                <a href="./produto.html">
+                    <li>
+                        <div class="produto produtoCatalogo" id="dente" data-nome="Dente de jacaré" data-imagem="./produtos/dente.jpeg" data-valor="R$2.220,00" data-descricao="Um dente de jacaré, como um item exótico de decoração ou curiosidade.">
+                            <img src="./produtos/dente.jpeg" class="imgCatalogo">
+                            <p>Dente de jacaré</p>
+                            <div class="precos">
+                                <h3>R$2.220,00</h3>
+                            </div>
+                            <div class="produtoCarrinhoCurtidos">
+                                <img src="./assets/cart-plus-fill.svg">
+                                <img src="./assets/heart.svg" alt="">
+                            </div>
+                        </div>
+                    </li>
+                </a>
+                <a href="./produto.html">
+                    <li>
+                        <div class="produto produtoCatalogo" id="dengo" data-nome="Dengo de xingxong" data-imagem="./produtos/dengo.jpeg" data-valor="R$10.390,00" data-descricao="Um produto ou objeto com o nome 'dengo de xingxong', cujo significado seria algo alegre, doce e carinhoso.">
+                            <img src="./produtos/dengo.jpeg" class="imgCatalogo">
+                            <p>Dengo de xingxong</p>
+                            <div class="precos">
+                                <h3>R$10.390,00</h3>
+                            </div>
+                            <div class="produtoCarrinhoCurtidos">
+                                <img src="./assets/cart-plus-fill.svg">
+                                <img src="./assets/heart.svg" alt="">
+                            </div>
+                        </div>
+                    </li>
+                </a>
+                <a href="./produto.html">
+                    <li>
+                        <div class="produto produtoCatalogo" id="cadeira" data-nome="Cadeira para ficar de pé" data-imagem="./produtos/cadeira.jpeg" data-valor="R$119,90" data-descricao="Uma cadeira projetada para ser usada enquanto a pessoa fica de pé, para proporcionar conforto em situações prolongadas.">
+                            <img src="./produtos/cadeira.jpeg" class="imgCatalogo">
+                            <p>Cadeira para ficar de pé</p>
+                            <div class="precos">
+                                <h3>R$119,90</h3>
+                            </div>
+                            <div class="produtoCarrinhoCurtidos">
+                                <img src="./assets/cart-plus-fill.svg">
+                                <img src="./assets/heart.svg" alt="">
+                            </div>
+                        </div>
+                    </li>
+                </a>
+                <a href="./produto.html">
+                    <li>
+                        <div class="produto produtoCatalogo" id="descarregador" data-nome="Descarregador de celular" data-imagem="./produtos/descarregador.jpeg" data-valor="R$12,50" data-descricao="Um dispositivo que descarrega a bateria do seu aparelho.">
+                            <img src="./produtos/descarregador.jpeg" class="imgCatalogo">
+                            <p>Descarregador de celular</p>
+                            <div class="precos">
+                                <h3>R$12,50</h3>
+                            </div>
+                            <div class="produtoCarrinhoCurtidos">
+                                <img src="./assets/cart-plus-fill.svg">
+                                <img src="./assets/heart.svg" alt="">
+                            </div>
+                        </div>
+                    </li>
+                </a>
+                <a href="./produto.html">
+                    <li>
+                        <div class="produto produtoCatalogo" id="pijama" data-nome="Pijama que dá choques com certa constância" data-imagem="./produtos/pijama.jpeg" data-valor="R$130,00" data-descricao="Um pijama que dá choques elétricos com uma constância indefinida e aleatória, causando surpresas divertidas durante o sono.">
+                            <img src="./produtos/pijama.jpeg" class="imgCatalogo">
+                            <p>Pijama que dá choques com certa constância</p>
+                            <div class="precos">
+                                <h3>R$130,00</h3>
+                            </div>
+                            <div class="produtoCarrinhoCurtidos">
+                                <img src="./assets/cart-plus-fill.svg">
+                                <img src="./assets/heart.svg" alt="">
+                            </div>
+                        </div>
+                    </li>
+                </a>
+                <a href="./produto.html">
+                    <li>
+                        <div class="produto produtoCatalogo" id="chapeu" data-nome="Chapéu que toca musica quando chove" data-imagem="./produtos/chapeu.jpeg" data-valor="R$310,00" data-descricao="Um chapéu equipado com um dispositivo que reproduz música quando detecta chuva, para animar os dias chuvosos.">
+                            <img src="./produtos/chapeu.jpeg" class="imgCatalogo">
+                            <p>Chapéu que toca musica quando chove</p>
+                            <div class="precos">
+                                <h3>R$310,00</h3>
+                            </div>
+                            <div class="produtoCarrinhoCurtidos">
+                                <img src="./assets/cart-plus-fill.svg">
+                                <img src="./assets/heart.svg" alt="">
+                            </div>
+                        </div>
+                    </li>
+                </a>
+                <a href="./produto.html">
+                    <li>
+                        <div class="produto produtoCatalogo" id="papel" data-nome="Papel Higiênico com frases motivacionais" data-imagem="./produtos/papel higienico.jpeg" data-valor="R$20,90" data-descricao="Papel higiênico com frases motivacionais impressas, torne a sua ida ao banheiro produtiva e incentivadora.">
+                            <img src="./produtos/papel higienico.jpeg" class="imgCatalogo">
+                            <p>Papel Higiênico com frases motivacionais</p>
+                            <div class="precos">
+                                <h3>R$20,90</h3>
+                            </div>
+                            <div class="produtoCarrinhoCurtidos">
+                                <img src="./assets/cart-plus-fill.svg">
+                                <img src="./assets/heart.svg" alt="">
+                            </div>
+                        </div>
+                    </li>
+                </a>
+                <a href="./produto.html">
+                    <li>
+                        <div class="produto produtoCatalogo" id="torradeira" data-nome="Torradeira que imprime seu meme favorito na sua torrada" data-imagem="./produtos/torradeira.jpeg" data-valor="R$420,00" data-descricao="Uma torradeira que, ao tostar o pão, imprime um meme favorito na superfície, proporcionando um café da manhã divertido e personalizado.">
+                            <img src="./produtos/torradeira.jpeg" class="imgCatalogo">
+                            <p>Torradeira que imprime seu meme favorito na sua torrada</p>
+                            <div class="precos">
+                                <h3>R$420,00</h3>
+                            </div>
+                            <div class="produtoCarrinhoCurtidos">
+                                <img src="./assets/cart-plus-fill.svg">
+                                <img src="./assets/heart.svg" alt="">
+                            </div>
+                        </div>
+                    </li>
+
+                </a>
+                <a href="./produto.html">
+                    <li>
+                        <div class="produto produtoCatalogo" id="maca" data-nome="Maçã dourada" data-imagem="./produtos/maca dourada.png" data-valor="R$420,00" data-descricao="Maçã Dourada do Minecraft na vida real.">
+                            <img src="./produtos/maca dourada.jpeg" class="imgCatalogo">
+                            <p>Maçã dourada</p>
+                            <div class="precos">
+                                <h3>R$420,00</h3>
+                            </div>
+                            <div class="produtoCarrinhoCurtidos">
+                                <img src="./assets/cart-plus-fill.svg">
+                                <img src="./assets/heart.svg" alt="">
+                            </div>
+                        </div>
+                    </li>
+
+                </a>
+                <a href="./produto.html">
+                    <li>
+                        <div class="produto produtoCatalogo" id="lanterna" data-nome="Lanterna que pisca em codigo morse" data-imagem="./produtos/lanterna.jpeg" data-valor="R$540,00" data-descricao="Uma lanterna que emite luz piscando em código morse para se comunicar de forma misteriosa.">
+                            <img src="./produtos/lanterna.jpeg" class="imgCatalogo">
+                            <p>Lanterna que pisca em codigo morse</p>
+                            <div class="precos">
+                                <h3>R$540,00</h3>
+                            </div>
+                            <div class="produtoCarrinhoCurtidos">
+                                <img src="./assets/cart-plus-fill.svg">
+                                <img src="./assets/heart.svg" alt="">
+                            </div>
+                        </div>
+                    </li>
+                </a>
+                <a href="./produto.html">
+                    <li>
+                        <div class="produto produtoCatalogo" id="Pão" data-nome="Pão misterioso" data-imagem="./produtos/pao.png" data-valor="R$19,50" data-descricao="Um pão misteroso capaz de ter efeitos sobre você ao consumí-lo.">
+                            <img src="./produtos/pao.png" class="imgCatalogo">
+                            <p>Pão misterioso</p>
+                            <div class="precos">
+                                <h3>R$19,50</h3>
+                            </div>
+                            <div class="produtoCarrinhoCurtidos">
+                                <img src="./assets/cart-plus-fill.svg">
+                                <img src="./assets/heart.svg" alt="">
+                            </div>
+                        </div>
+                    </li>
+                </a>
+            </ul>
+        </main>
+        <script src="./script.js"></script>
+        <script src="./script-catalogo.js"></script>
+    </body>
+
+</html>
