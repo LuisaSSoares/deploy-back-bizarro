@@ -1,55 +1,55 @@
 /* GERAL */
-
+ 
 *{
     margin: 0;
     padding: 0;
     font-family: "Sedgwick Ave Display", cursive;
     font-family: "Oleo Script Swash Caps", system-ui;
 }
-
+ 
 body{
     background-image: linear-gradient(to right, #382277,#09203D,#222677);
     background-attachment: repeat;
 }
-
+ 
 /* HEADER */
-
+ 
 header{
     display: flex;
-    justify-content: space-around; 
+    justify-content: space-around;
     align-items: center;
-    background-color: #1C457D; 
+    background-color: #1C457D;
     gap: 6px;
-    height: 2cm; 
+    height: 2cm;
     border: none;
 }
-
+ 
 #figura{
     width: 50px;
     height: 50px;
 }
-
+ 
 input{
     color: #a458b9;
 }
-
+ 
 #logo{
-    display: flex; 
+    display: flex;
     flex-direction: row;
     gap: 15px;
 }
-
+ 
 #nome{
     font-family: "David Libre", serif;
     font-size: 40px;
     letter-spacing: 2px;
     color: #CA6CE5;
 }
-
+ 
 a{
     text-decoration: none;
 }
-
+ 
 #Search{
     display: flex;
     background-color: transparent;
@@ -60,12 +60,12 @@ a{
     align-items: center;
     padding: 10px;
 }
-
+ 
 ::placeholder{
     color: #CA6CE5;
     opacity: 50%;
 }
-
+ 
 #textSearch{
     outline: none;
     border: none;
@@ -73,40 +73,40 @@ a{
     width: 15cm;
     letter-spacing: 1.5px;
 }
-
+ 
 #lupa{
     height: 25px;
 }
-
+ 
 #acesso{
-    display: flex; 
+    display: flex;
     gap: 30px;
 }
-
+ 
 .carrinhoECurtidos{
     height: 40px;
     z-index: 2;
     cursor: pointer;
 }
-
+ 
 /* INDEX */
-
+ 
 #promocao{
     display: flex;
-    justify-content: space-between; 
+    justify-content: space-between;
 }
-
+ 
 #containerPromocao{
     letter-spacing: 1px;
     margin: 120px auto;
     text-align: center;
 }
-
+ 
 #titulo{
     color: #CA6CE5;
     font-size: 60px;
 }
-
+ 
 #texto{
     color: #a458b9;
     font-size: 50px;
@@ -119,19 +119,19 @@ a{
     height: 15cm;
     mask-image: linear-gradient(to top, transparent 15%, #382277);
 }
-
+ 
 #info{
     display: flex;
     justify-content: space-around;
 }
-
+ 
 /* DESCONTO */
-
+ 
 .carousel-control-next, .carousel-control-prev {
     height: 80vh;
     margin-top: 10vh;
 }
-
+ 
 #fundo{
     background-image: url(./assets/fundo.jpeg);
     height: 15cm;
@@ -143,16 +143,16 @@ a{
     justify-content: flex-start;
     position: absolute;
 }
-
+ 
 #containerDesconto{
     height: 15cm;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
-
+ 
 }
-
+ 
 #tituloDesconto{
     color: #CA6CE5;
     font-size: 60px;
@@ -160,7 +160,7 @@ a{
     margin-top: 10px;
     margin-left: 100px;
 }
-
+ 
 #subDesconto{
     color: #9f4fb5;
     font-size: 35px;
@@ -168,7 +168,7 @@ a{
     position: relative;
     margin-left: 100px;
 }
-
+ 
 .produto h1{
     font-size: 22px;
     color: rgb(33, 33, 34);
@@ -176,40 +176,40 @@ a{
     white-space: nowrap;
     text-overflow: ellipsis;
 }
-
+ 
 .ProDes{
     display: flex;
     gap: 50px;
     list-style-type: none;
     position: relative;
 }
-
+ 
 .ProdutosDesc{
     flex-direction: column;
     gap: 4px;
     height: 300px;
-    width: 225px; 
+    width: 225px;
 }
-
+ 
 .precos{
     display: flex;
     color: black;
 }
-
+ 
 .precos h6{
     color: rgb(66, 49, 77);
 }
-
+ 
 .produtoCarrinhoCurtidos{
     margin-top: 10px;
     display: flex;
     gap: 10px;
     flex-direction: row-reverse;
 }
-
+ 
 .dados:hover{
     outline: solid #CA6CE5;
-
+ 
 }
  
 .dados{
@@ -222,38 +222,38 @@ a{
     height: 10cm;
     width: 7cm;
 }
-
+ 
 .dados p{
     color: #CA6CE5;
     font-size: 20px;
-    margin-top: 25px; 
+    margin-top: 25px;
 }
-
+ 
 #produtosHoje{
     display: flex;
     gap: 15px;
     margin-top: 45px;
     margin-left: 40px;
 }
-
+ 
 #produtosHoje h1{
     color: #CA6CE5;
 }
-
+ 
 #botaoCatalogo{
     background-color: transparent;
     border: none;
 }
-
+ 
 #lista{
     height: 5px;
     margin-top: 40px;
     display: flex;
-    justify-content: space-around;
+    justify-content: space-between;
     list-style-type: none;
-
+ 
 }
-
+ 
 .produto{
     padding: 20px;
     height: 400px;
@@ -261,12 +261,12 @@ a{
     background-image: linear-gradient(to bottom, #1C457D, #CA6CE5);
     border-radius: 10px;
 }
-
+ 
 .produtoImg{
     height: 200px;
 }
-
-
+ 
+ 
 .produto p{
     font-family: "Oregano", cursive;
     font-size: 22px;
@@ -274,22 +274,22 @@ a{
     overflow:hidden;
     white-space: nowrap;
     text-overflow: ellipsis;
-    
+   
 }
-
+ 
 .produto:hover{
     border: 1px solid #CA6CE5;
 }
-
+ 
 /* CATÁLOGO */
-
+ 
 #title {
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
 }
-
+ 
 #catalogoTitulo{
     font-size: 50px;
     color: #a458b9;
@@ -297,14 +297,14 @@ a{
     text-align: center;
     margin-top: 50px;
 }
-
+ 
 #linhaCatalogo{
     color: #CA6CE5;
     width: 75vw;
     display: flex;
     justify-content: center;
 }
-
+ 
 #listaCatalogo{
     display: flex;
     flex-wrap: wrap;
@@ -313,19 +313,19 @@ a{
     gap: 50px;
     margin-top: 50px;
 }
-
+ 
 .produtoCatalogo{
     flex-direction: column;
     height: 300px;
-    width: 225px; 
+    width: 225px;
 }
-
+ 
 .imgCatalogo{
     height: 145px;
 }
-
+ 
 /* CARRINHO */
-
+ 
 #aviso {
     background-color: #8455a3;
     margin: 5%;
@@ -336,21 +336,21 @@ a{
     border-radius: 10px;
     justify-content: center;
 }
-
+ 
 #aviso a {
     color: #382277;
     font-size: 30px;
     transition: color 0.3s ease;
 }
-
+ 
 #aviso a:hover {
     color: #523693;
 }
-
+ 
 #aviso h1 {
     color:#382277;
 }
-
+ 
 #lista-produtos-carrinho{
     display: flex;
     flex-wrap: wrap;
@@ -358,7 +358,7 @@ a{
     justify-content: center;
     gap: 50px;
 }
-
+ 
 #finalizar{
     display: none;
     align-items: center;
@@ -372,7 +372,7 @@ a{
     border-radius: 10px;
     background-color: rgba(0,0,0,0.4);
 }
-
+ 
 #final-content{
     width: 30vw;  
     height: 500px;
@@ -387,18 +387,18 @@ a{
     padding: 20px;
     border-radius: 5px;
 }
-
+ 
 #lista-final{
     list-style-type: none;
     display: flex;
     flex-direction: column;
     width: 25vw;
 }
-
+ 
 #total{
     color: #09203D;
 }
-
+ 
 .produtoFinal{
     display: flex;
     justify-content: space-between;
@@ -406,14 +406,14 @@ a{
     text-decoration: none;
     padding: 6px;
     color: #09203D;
-
+ 
 }
-
+ 
 .produtoFinal:hover{
     border:#CA6CE5 solid 2px;
     border-radius: 10px;
 }
-
+ 
 #btnFinalizar{
     height: 60px;
     width: 200px;
@@ -428,33 +428,33 @@ a{
     justify-content: center;
     color: #382277;
 }
-
+ 
 #imgFinal{
     width: 40px;
 }
-
+ 
 #closeModal {
     color: #CA6CE5;
     width: 40px;
     cursor: pointer;
 }
-
+ 
 .main-carrinho{
     display: flex;
     flex-direction: column;
     align-items: center;
     padding: 30px;
 }
-
+ 
 #buyBtn{
     background-color: #CA6CE5;
     color: #382277;
     padding: 5px;
     border-radius: 5px;
 }
-
+ 
 /* CURTIDOS */
-
+ 
 #lista-produtos-curtidos{
     display: flex;
     flex-wrap: wrap;
@@ -462,13 +462,13 @@ a{
     justify-content: center;
     gap: 50px;
 }
-
+ 
 #img-broken{
     width: 120px;
 }
-
+ 
 /* PRODUTO */
-
+ 
 .main-produto {
     display: flex;
     flex-direction: column;
@@ -477,7 +477,7 @@ a{
     gap: 30px;
     height: 85vh;
 }
-
+ 
 .containerProduto {
     background-image: linear-gradient(#CA6CE5, #1C457D);
     padding: 20px;
@@ -486,19 +486,19 @@ a{
     height: 50vh;
     border-radius: 5px;
 }
-
+ 
 .produtoBase {
     display: flex;
     flex-direction: column;
     padding: 10px;
     gap: 10px;
 }
-
+ 
 .produtoBase img {
     width: 200px;
     height: 200px;
 }
-
+ 
 .produtoBase button {
     padding: 5px;
     border-radius: 5px;
@@ -507,53 +507,53 @@ a{
     font-size: 16px;
     transition: 0.3s;
 }
-
+ 
 .produtoBase button:hover {
     font-size: 17px;
 }
-
+ 
 .produtoBase a {
     color: #222677;
 }
-
+ 
 .produtoNome {
     display: flex;
     flex-direction: column;
     padding: 20px;
     gap: 10px;
 }
-
+ 
 .produtoNome h2 {
     font-size: 25px;
 }
-
+ 
 .produtoNome h1 {
     font-size: 30px;
 }
-
+ 
 .produtoDesc {
     display: flex;
     flex-direction: column;
     padding: 30px;
     gap: 10px;
 }
-
+ 
 .produtoDesc h3 {
     font-size: 20px;
 }
-
+ 
 .produtoDesc img {
     width: 30px;
     height: 30px;
 }
-
+ 
 .produtoDesc button {
     background: none;
     border: none;
     display: flex;
     justify-content: end;
 }
-
+ 
 #ir-catalogo{
     background-color: #CA6CE5;
     color: #382277;
@@ -562,9 +562,9 @@ a{
     align-self: flex-start;
     margin-left: 30px;
 }
-
+ 
 /* COMPRA */
-
+ 
 #agradecimento{
     display: flex;
     flex-direction: column;
@@ -573,7 +573,75 @@ a{
     color: #CA6CE5;
     height: 85vh;
 }
-
+ 
 #img-compra{
     width: 100px;
+}
+ 
+/*CADASTRO */
+ 
+.infoUser{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin-top: 40px;
+   
+}
+.cadastro{
+    background-color: #7f3693;
+    border-radius: 50px;
+    height: 12cm;
+    width: 20cm;
+}
+.dado{
+    display: flex;
+    gap: 10px;
+    margin-top: 15px;
+    margin-left: 15px;
+}
+ 
+.dado p{
+    font-size: 20px;
+}
+ 
+.dado input{
+    color: #09203D;
+    font-size: 15px;
+    font-family: Arial, Helvetica, sans-serif;
+}
+ 
+.userDados{
+    background-color: transparent;
+    height: 1cm;
+    width: 10cm;
+    border-radius: 50px;
+    border: 1px solid #09203D;
+    padding: 10px;
+}
+ 
+.cadastrarButton{
+    display: flex;
+    -ms-flex-item-align: center;
+    justify-content: center;
+}
+ 
+#cadastrar{
+    background-color: transparent;
+    color: #382277;
+    font-size: 25px;
+    height: 1cm;
+    width: 5cm;
+    border: 2px solid #382277;
+    margin-top: 20px;
+}
+ 
+#cadastrar:active {
+    background-color: #5b2d71;
+    transform: scale(0.98);  
+}
+ 
+#loginMessage{
+    color: #7f3693;
+    font-size: 20px;
 }
