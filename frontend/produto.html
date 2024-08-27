@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -22,10 +23,11 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Oregano:ital@0;1&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="./style.css">
     <link rel="icon" href="./assets/figure.png">
     <title>Bizarro</title>
 </head>
+
 <body>
     <header>
         <a href="./index.html">
@@ -46,30 +48,31 @@
         </div>
     </header>
 
-    <main>
-        <section class="infoUser">
-            <div class="cadastro">
-                <div class="dado">
-                    <p class="titulo-cadastro">Nome:</p>
-                    <input type="text" class="userDados" id="nomeUser">
-                </div>
-
-                <div class="dado">
-                    <p class="titulo-cadastro">Senha:</p>
-                    <input type="password" class="userDados" id="senhaUser">
-                </div>
-                <div class="cadastrarButton">
-                    <a href="./index.html">
-                        <button id="cadastrar">Cadastrar</button>                         
-                    </a>
-                   
-                </div>
-
-            </div>     
-        </section>
+    <main class="main-produto">
+        <a href="./catalogo.html" id="ir-catalogo">Voltar para o Catalogo</a>
+        <div class="containerProduto">
+            <div class="produtoBase">
+                <img src="./produtos/base produto.png" alt="foto-produto" id="img-produto">
+                <a href="./carrinho.html"><button id="add-carrinho">Adicionar ao Carrinho</button></a>
+            </div>
+            <div class="produtoNome">
+                <h2 id="nome-produto">Nome do Produto</h2>
+                <h1 id="valor-produto">R$0</h1>
+            </div>
+            
+            <div class="produtoDesc">
+                <a href="./curtidos.html">
+                    <button id="add-curtidos">
+                        <img src="./assets/heart.svg" alt="gosto">
+                    </button>
+                </a>
+                <h3 id="descricao">Lorem ipsum dolor sit amet consectetur adipisicing elit. Tempora illo provident corrupti vitae quisquam, repellat quam quia rem.</h3>
+            </div>
+        </div>
     </main>
 
-    <script src="script-cadastro-login.js"></script>
+    <script src="./script-produto.js"></script>
+    <script src="./script-curtidos.js"></script>
 </body>
+
 </html>
-+
