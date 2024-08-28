@@ -11,7 +11,7 @@ async function cadastrar(event) {
 
     console.log(data);
     
-    const response = await fetch('http://localhost:3002/usuario/cadastrar', {
+    const response = await fetch('http://localhost:3013/usuario/cadastrar', {
         method: "POST",
         headers: {
             "Content-Type":"application/json"

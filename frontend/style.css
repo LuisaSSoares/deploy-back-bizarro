@@ -120,10 +120,6 @@ a{
     mask-image: linear-gradient(to top, transparent 15%, #382277);
 }
  
-#info{
-    display: flex;
-    justify-content: space-around;
-}
  
 /* DESCONTO */
  
@@ -648,7 +644,7 @@ a{
     transform: scale(0.98);  
 }
  
-#loginMessage{
+.loginCadastroMessage{
     color: #7f3693;
     font-size: 20px;
 }

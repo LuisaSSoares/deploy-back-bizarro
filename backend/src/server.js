@@ -1,7 +1,7 @@
 const express = require('express');
 const cors = require('cors');
 
-const port = 3002;
+const port = 3013;
 const app = express()
 
 app.use(cors());
@@ -12,9 +12,9 @@ app.use(express.json());
 //Rota post para adicionar produtos curtidos
 
 //Rota get para coletar produtos curtidos
-app.get('http://localhost:3002/produto/produtosCurtidos', async (request, response) => {
+app.get('http://localhost:3013/produto/produtosCurtidos', async (request, response) => {
     try {
-        const [rows] = await db.query('SELECT * FROM produtosCurtidos WHERE userId = ?', [req.user.id]);
+        const [rows] = await db.query('SELECT * FROM produtosCurtidos WHERE usuarioId = ?', [req.usuario.id]);
         request.json(rows);
     } catch (err) {
         response.status(500).send('Erro ao buscar produtos curtidos');
@@ -38,10 +38,10 @@ app.post('/usuario/cadastrar', (request, response) => {
         request.body.fone
     )
     // Criar o comando de execucao no banco de dados
-    let query = "INSERT INTO users(name,email,password,cpf,fone) VALUES(?,?,?,?,?);"
+    let query = "INSERT INTO usuario(name,email,password,cpf,fone) VALUES(?,?,?,?,?);"
     // Passar o comando e os dados para funcao query
-    connection.query(query,params,(err,results) => {
-        if(results) {
+    connection.query(query, params, (err, results) => {
+        if (results) {
             response
                 .status(201)
                 .json({
@@ -51,23 +51,45 @@ app.post('/usuario/cadastrar', (request, response) => {
                 })
         } else {
             response
-            .status(400)
-            .json({
-                success: false,
-                message: "Sem sucesso",
-                data: err
-            })
+                .status(400)
+                .json({
+                    success: false,
+                    message: "Sem sucesso",
+                    data: err
+                })
         }
     })
 })
 // Rota get para listar usuarios
 app.get('/usuarios/listar', (request, response) => {
+    const query = "SELECT * FROM usuario";
+
+    connection.query(query, (err, results) => {
+        if (results) {
+            response
+                .status(200)
+                .json({
+                    success: true,
+                    message: "Sucesso!",
+                    data: results
+                })
+        } else {
+            response
+                .status(400)
+                .json({
+                    succss: false,
+                    message: "Sem Sucesso!",
+                    data: err
+                })
+        }
+    })
 })
+
 // Rota put para atualizar usuario
 app.put('/usuarios/editar/:id', (request, response) => {
 })
 // Rota delete para deletar usuario
-app.delete('/usuario/deletar/:id', (request, response) => { 
+app.delete('/usuario/deletar/:id', (request, response) => {
 })
 
 
