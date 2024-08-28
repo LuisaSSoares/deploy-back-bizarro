@@ -9,17 +9,6 @@ app.use(express.json());
 
 //ROTA DE CURTIR PRODUTOS
 
-//Rota post para adicionar produtos curtidos
-
-//Rota get para coletar produtos curtidos
-app.get('http://localhost:3013/produto/produtosCurtidos', async (request, response) => {
-    try {
-        const [rows] = await db.query('SELECT * FROM produtosCurtidos WHERE usuarioId = ?', [req.usuario.id]);
-        request.json(rows);
-    } catch (err) {
-        response.status(500).send('Erro ao buscar produtos curtidos');
-    }
-});
 
 app.listen(port, () => console.log(`Rodando na porta ${port}`));
 
@@ -91,5 +80,9 @@ app.put('/usuarios/editar/:id', (request, response) => {
 // Rota delete para deletar usuario
 app.delete('/usuario/deletar/:id', (request, response) => {
 })
+
+//ROTA DE LOGAR USUARIO
+
+
 
 

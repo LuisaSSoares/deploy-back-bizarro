@@ -22,8 +22,7 @@ async function cadastrar(event) {
     const results = await response.json();
 
     if(results.success) {
-        alert(results.message)
-    } else {
-        alert(alert.message)
+        localStorage.setItem('cadastroSucesso', 'true')
+        window.location.href = './index.html'
     }
 }
