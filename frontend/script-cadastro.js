@@ -1,13 +1,13 @@
 async function cadastrar(event) {
     event.preventDefault();
 
-    const name = document.getElementById('nomeUser').value;
+    const nome = document.getElementById('nomeUser').value;
     const email = document.getElementById('emailUser').value;
-    const fone = document.getElementById('telefoneUser').value;
+    const telefone = document.getElementById('telefoneUser').value;
     const cpf = document.getElementById('cpfUser').value;
-    const password = document.getElementById('senhaUser').value;
+    const senha = document.getElementById('senhaUser').value;
 
-    const data = {name, email, fone, cpf, password}
+    const data = {nome, email, telefone, cpf, senha}
 
     console.log(data);
     

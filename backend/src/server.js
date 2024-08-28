@@ -31,14 +31,14 @@ const connection = require('./db_config')
 app.post('/usuario/cadastrar', (request, response) => {
     // Criar um array com os dados recebidos
     let params = Array(
-        request.body.name,
-        request.body.email,
-        request.body.password,
+        request.body.nome,
         request.body.cpf,
-        request.body.fone
+        request.body.email,
+        request.body.telefone,
+        request.body.senha
     )
     // Criar o comando de execucao no banco de dados
-    let query = "INSERT INTO usuario(name,email,password,cpf,fone) VALUES(?,?,?,?,?);"
+    let query = "INSERT INTO usuario(nome,cpf,email,telefone,senha) VALUES(?,?,?,?,?);"
     // Passar o comando e os dados para funcao query
     connection.query(query, params, (err, results) => {
         if (results) {
