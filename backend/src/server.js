@@ -52,7 +52,6 @@ app.post('/usuario/cadastrar', async (request, response) => {
     });
 });
 
-// Rota para login do usuário
 app.post('/usuario/login', (req, res) => {
     const { email, senha } = req.body;
 
