@@ -22,10 +22,11 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Oregano:ital@0;1&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="./style.css">
     <link rel="icon" href="./assets/figure.png">
     <title>Bizarro</title>
 </head>
+
 <body>
     <header>
         <a href="./index.html">
@@ -43,15 +44,21 @@
         <div id="acesso">
             <a href="./carrinho.html"><img src="./assets/cart3.svg" class="carrinhoECurtidos" id="carrinho"></a>
             <a href="./curtidos.html"><img src="./assets/heart-fill.svg" class="carrinhoECurtidos"></a>
+            <a><img src="./assets/person-circle.svg" class="carrinhoECurtidos" id="perfil"></a>
         </div>
     </header>
-
+    
     <main>
-        <div id="agradecimento">
-            <img src="./assets/pidao.jpg" alt="" id="img-compra">
-            <h1>Nos dá mais tempo que finalizamos tudo!</h1>
-            <h4>Bizzaro Agradece sua Preferência!</h4>
-        </div>  
+        <div class="profile-container">
+            <div class="profile-picture">
+                <p>Foto do usuário</p>
+            </div>
+            <div class="profile-info">
+                <h2>Nome do usuário</h2>
+                <p>email</p>
+            </div>
+            <button class="edit-button">Editar perfil</button>
+        </div>
     </main>
 </body>
 </html>

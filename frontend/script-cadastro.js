@@ -8,9 +8,6 @@ async function cadastrar(event) {
     const senha = document.getElementById('senhaUser').value;
 
     const data = {nome, email, telefone, cpf, senha}
-
-    console.log(data);
-    
     const response = await fetch('http://localhost:3013/usuario/cadastrar', {
         method: "POST",
         headers: {
@@ -22,7 +19,11 @@ async function cadastrar(event) {
     const results = await response.json();
 
     if(results.success) {
-        localStorage.setItem('cadastroSucesso', 'true')
+        sessionStorage.setItem('cadastroSucesso', 'true')
         window.location.href = './index.html'
+    } else{
+        const mensagem = document.getElementById('mensagemErro')
+        mensagem.textContent = 'Ocorreu um erro durante o cadastro. Tente novamente ou faça o login'
+        mensagem.style.display = 'block'
     }
 }

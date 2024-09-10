@@ -43,12 +43,14 @@
         <div id="acesso">
             <a href="./carrinho.html"><img src="./assets/cart3.svg" class="carrinhoECurtidos" id="carrinho"></a>
             <a href="./curtidos.html"><img src="./assets/heart-fill.svg" class="carrinhoECurtidos"></a>
-            <a href="./cadastro.html"><img src="./assets/person-circle.svg" class="carrinhoECurtidos" id="carrinho"></a>
+            <a><img src="./assets/person-circle.svg" class="carrinhoECurtidos" id="perfil"></a>
         </div>
     </header>
 
     <main>
         <section class="infoUser">
+            <p id="cadastroBizarroMessage">Seja bem-vindo de volta ao Bizarro!</p>
+            <div id="mensagemErro"></div>
             <div class="cadastro">
                 <div class="dado">
                     <p class="titulo-cadastro">Email</p>
@@ -61,7 +63,7 @@
                 </div>
                 <div class="cadastrarButton">
                     <a href="./index.html">
-                        <button id="cadastrar">Fazer login</button>                         
+                        <button id="cadastrar" onclick="login(event)">Fazer login</button>                         
                     </a>
                    
                 </div>
@@ -71,7 +73,6 @@
         </section>
     </main>
 
-    <script src="script-cadastro-login.js"></script>
+    <script src="script-login.js"></script>
 </body>
 </html>
-+

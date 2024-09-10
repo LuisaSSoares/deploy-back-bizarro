@@ -43,12 +43,16 @@
         <div id="acesso">
             <a href="./carrinho.html"><img src="./assets/cart3.svg" class="carrinhoECurtidos" id="carrinho"></a>
             <a href="./curtidos.html"><img src="./assets/heart-fill.svg" class="carrinhoECurtidos"></a>
-            <a href="./cadastro.html"><img src="./assets/person-circle.svg" class="carrinhoECurtidos" id="carrinho"></a>
+            <a><img src="./assets/person-circle.svg" class="carrinhoECurtidos" id="perfil"></a>
         </div>
     </header>
 
     <main class="main-carrinho">
-        <div id="aviso"></div>
+        <div id="aviso">
+                <img src="./assets/broken.png" alt="" id="img-broken">
+                <h1>Ops! Parece que você não curtiu nenhum produto...</h1>
+                <a href="./catalogo.html">Ir para o Catálogo</a>
+        </div>
 
         <ul class="like-list" id="lista-produtos-curtidos">
            
@@ -58,5 +62,6 @@
     <script src="./script.js"></script>
     <script src="./script-cadastro.js"></script>
     <script src="./script-curtidos.js"></script>
+    <script src="./script-perfil.js"></script>
 </body>
 </html>

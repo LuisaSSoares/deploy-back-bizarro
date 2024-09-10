@@ -648,3 +648,53 @@ a{
     color: #7f3693;
     font-size: 20px;
 }
+
+#mensagemErro{
+    color:#9f4fb5
+}
+
+/* PERFIL */
+
+.profile-container {
+    background-color: #9c40c5;
+    padding: 40px;
+    border-radius: 15px;
+    text-align: center;
+    width: 60%;
+}
+
+.profile-picture {
+    background-color: #d3d3d3;
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 20px;
+    color: black;
+}
+
+.profile-info h2 {
+    font-size: 24px;
+    margin-bottom: 10px;
+}
+
+.profile-info p {
+    font-size: 18px;
+}
+
+.edit-button {
+    background-color: #ea5ee6;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 10px;
+    font-size: 16px;
+    cursor: pointer;
+    margin-top: 20px;
+}
+
+.edit-button:hover {
+    background-color: #c738b1;
+}
