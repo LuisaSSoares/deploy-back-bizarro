@@ -17,7 +17,10 @@ async function login(event) {
 
     if (results.success) {
         sessionStorage.setItem('cadastroSucesso', 'true')
-        localStorage.setItem('dadosUserLogado', results.data)
+        let userData = results.data
+        
+        localStorage.setItem('informacoes', JSON.stringify(userData))
+
         window.location.href = './index.html'; // Redireciona para a página inicial ou qualquer outra página desejada
     } else {
         const mensagem = document.getElementById('mensagemErro');

@@ -81,7 +81,7 @@ app.post('/usuario/login', (req, res) => {
                 res.json({
                     success: true,
                     message: 'Login realizado com sucesso!',
-                    data: { id: user.idusuario, email: user.email, perfil: user.perfil }
+                    data: user
                 });
             } else {
                 res.status(401).json({
@@ -234,6 +234,31 @@ app.get('/produtos/curtidos/:id', (request, response) => {
         }
     });
 });
+
+// Rota PUT pra editar o perfil do usuario
+app.put('/usuario/editar/:id', (req, res) => {
+    const { id } = req.params;
+    const { nome, email, telefone } = req.body;
+
+    const query = "UPDATE usuario SET nome = ?, email = ?, telefone = ? WHERE idusuario = ?";
+    const params = [nome, email, telefone, id];
+
+    connection.query(query, params, (err, results) => {
+        if (err) {
+            return res.status(500).json({
+                success: false,
+                message: "Erro ao editar o perfil do usuário",
+                error: err
+            });
+        }
+        res.status(200).json({
+            success: true,
+            message: "Perfil do usuário atualizado com sucesso",
+            data: results
+        });
+    });
+});
+
 
 // Rota POST para adicionar um produto ao carrinho
 app.post('/carrinho/adicionar', (request, response) => {
