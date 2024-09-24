@@ -236,14 +236,13 @@ app.get('/produtos/curtidos/:id', (request, response) => {
 });
 
 // Rota PUT pra editar o perfil do usuario
-app.put('/usuario/editar/:id', (req, res) => {
-    const { id } = req.params;
-    const { nome, email, telefone } = req.body;
+app.put('/usuario/editar/:id', (req, res) => {    
+    const params = [req.body.nome, req.body.email, req.params.id];
 
-    const query = "UPDATE usuario SET nome = ?, email = ?, telefone = ? WHERE idusuario = ?";
-    const params = [nome, email, telefone, id];
-
+    const query = "UPDATE usuario SET nome = ?, email = ? WHERE idusuario = ?";
+    
     connection.query(query, params, (err, results) => {
+        console.log(err, results)
         if (err) {
             return res.status(500).json({
                 success: false,

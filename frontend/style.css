@@ -224,6 +224,140 @@ textarea {
     border: none;
 }
 
+.produtoDestaque{
+    height: 400px;
+    width: 300px;
+}
+/* DESCONTO */
+ 
+.carousel-control-next, .carousel-control-prev {
+    height: 80vh;
+    margin-top: 10vh;
+}
+ 
+#fundo{
+    background-image: url(./assets/fundo.jpeg);
+    height: 15cm;
+    width: 100%;
+    mask-image: linear-gradient(to top, transparent 15%, #382277);
+    background-size: cover;
+    background-position: 0px -140px;
+    filter: brightness(40%);
+    justify-content: flex-start;
+    position: absolute;
+}
+ 
+#containerDesconto{
+    height: 15cm;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+ 
+}
+ 
+#tituloDesconto{
+    color: #CA6CE5;
+    font-size: 60px;
+    position: relative;
+    margin-top: 10px;
+    margin-left: 100px;
+}
+ 
+#subDesconto{
+    color: #9f4fb5;
+    font-size: 35px;
+    margin-top: 10px;
+    position: relative;
+    margin-left: 100px;
+}
+ 
+.produto h1{
+    font-size: 22px;
+    color: rgb(33, 33, 34);
+    overflow:hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+ 
+.ProDes{
+    display: flex;
+    gap: 50px;
+    list-style-type: none;
+    position: relative;
+}
+ 
+.ProdutosDesc{
+    flex-direction: column;
+    gap: 4px;
+    height: 300px;
+    width: 225px;
+}
+ 
+.precos{
+    display: flex;
+    color: black;
+}
+ 
+.precos h6{
+    color: rgb(66, 49, 77);
+}
+ 
+.produtoCarrinhoCurtidos{
+    margin-top: 10px;
+    display: flex;
+    gap: 10px;
+    flex-direction: row-reverse;
+}
+ 
+.dados:hover{
+    outline: solid #CA6CE5;
+ 
+}
+ 
+.dados{
+    background-color: #1C457D;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    border-radius: 50px;
+    height: 10cm;
+    width: 7cm;
+}
+ 
+.dados p{
+    color: #CA6CE5;
+    font-size: 20px;
+    margin-top: 25px;
+}
+ 
+#produtosHoje{
+    display: flex;
+    gap: 15px;
+    margin-top: 45px;
+    margin-left: 40px;
+}
+ 
+#produtosHoje h1{
+    color: #CA6CE5;
+}
+ 
+#botaoCatalogo{
+    background-color: transparent;
+    border: none;
+}
+ 
+#lista{
+    height: 5px;
+    margin-top: 40px;
+    display: flex;
+    justify-content: space-between;
+    list-style-type: none;
+ 
+}
+
+
 /* CATALOG */
 #title {
     display: flex;
@@ -268,10 +402,9 @@ textarea {
 
 .produto {
     padding: 20px;
-    height: 400px;
-    width: 300px;
     background-image: linear-gradient(to bottom, #1C457D, #CA6CE5);
     border-radius: 10px;
+   
 }
 
 .produtoImg {
@@ -289,6 +422,10 @@ textarea {
 
 .produto:hover {
     border: 1px solid #CA6CE5;
+}
+
+.dadosLoginCadastro{
+    color: #07182d;
 }
 
 /* CART */

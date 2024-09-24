@@ -19,8 +19,8 @@ async function cadastrar(event) {
     const results = await response.json();
 
     if(results.success) {
-        sessionStorage.setItem('cadastroSucesso', 'true')
         window.location.href = './index.html'
+        
     } else{
         const mensagem = document.getElementById('mensagemErro')
         mensagem.textContent = 'Ocorreu um erro durante o cadastro. Tente novamente ou faça o login'

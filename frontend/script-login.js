@@ -16,7 +16,6 @@ async function login(event) {
     const results = await response.json(); // Converte a resposta da requisição para JSON
 
     if (results.success) {
-        sessionStorage.setItem('cadastroSucesso', 'true')
         let userData = results.data
         
         localStorage.setItem('informacoes', JSON.stringify(userData))

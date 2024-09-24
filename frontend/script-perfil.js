@@ -8,16 +8,12 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 });
 
-function paginaPerfil() {
-    const cadastroSucesso = sessionStorage.getItem('cadastroSucesso'); // Usar sessionStorage para salvar infos do usuário cadastrado/logado 
-
-    if (!cadastroSucesso) {
-        // Se não houver registro de cadastro, redireciona para a página de cadastro
-        window.location.href = './cadastro.html';
-    } else if (cadastroSucesso === 'true') {
+function paginaPerfil() {        
+    if(localStorage.getItem('informacoes')) { 
         // Se houver registro de cadastro, redireciona para a página de perfil
         window.location.href = './perfil.html';
-
+    } else {
+        window.location.href = './login.html';
     }
 }
 
@@ -46,46 +42,68 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 });
 
-function paginaPerfil() {
-    const cadastroSucesso = sessionStorage.getItem('cadastroSucesso');
-
-    if (!cadastroSucesso) {
-        window.location.href = './cadastro.html';
-    } else if (cadastroSucesso === 'true') {
-        window.location.href = './perfil.html';
-    }
-}
-
-window.addEventListener("load", () => {
-    let dados = JSON.parse(localStorage.getItem('informacoes'));
-
-    if (dados) {
-        document.getElementById('nomeUsuario').textContent = dados.nome;
-        document.getElementById('emailUsuario').textContent = dados.email;
-    }
-});
-
 // Função para editar o perfil
 function editarPerfil() {
     let dados = JSON.parse(localStorage.getItem('informacoes'));
 
-    const novoNome = prompt('Edite seu nome:', dados.nome);
-    const novoEmail = prompt('Edite seu e-mail:', dados.email);
+    if (dados) {
+        const novoNome = prompt('Edite seu nome:', dados.nome);
+        const novoEmail = prompt('Edite seu e-mail:', dados.email);
 
-    if (novoNome && novoEmail) {
-        // Atualiza os dados
-        dados.nome = novoNome;
-        dados.email = novoEmail;
+        if (novoNome && novoEmail) {
+            // Atualiza os dados localmente no localStorage
+            // dados.nome = novoNome;
+            // dados.email = novoEmail;
 
-        // Salva as alterações no localStorage
-        localStorage.setItem('informacoes', JSON.stringify(dados));
+            // Atualiza os elementos na página
+            // document.getElementById('nomeUsuario').textContent = dados.nome;
+            // document.getElementById('emailUsuario').textContent = dados.email;
 
-        // Atualiza os elementos na página
-        document.getElementById('nomeUsuario').textContent = dados.nome;
-        document.getElementById('emailUsuario').textContent = dados.email;
-
-        alert('Perfil atualizado com sucesso!');
+            // Envia os dados atualizados para o servidor via requisição PUT
+            console.log(dados.idusuario)
+            fetch(`http://localhost:3013/usuario/editar/${dados.idusuario}`, {
+                method: 'PUT',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    nome: novoNome,
+                    email: novoEmail
+                }),
+            })
+            .then(response => response.json())
+            .then(results => {
+                if (results.success) {
+                    let dadosAtualizados = results.data;
+                    // Atualiza os dados no localStorage com sucesso do servidor
+                    localStorage.setItem('informacoes', JSON.stringify(dadosAtualizados));
+                    alert('Perfil atualizado com sucesso!');
+                } else {
+                    alert('Erro ao atualizar o perfil no servidor.');
+                }
+            })
+            .catch((error) => {
+                console.error('Erro:', error);
+                alert('Ocorreu um erro ao tentar atualizar o perfil.');
+            });
+        } else {
+            alert('Os campos não podem estar vazios!');
+        }
     } else {
-        alert('Os campos não podem estar vazios!');
+        alert('Erro ao carregar informações do usuário.');
     }
 }
+
+function sair() {
+    localStorage.removeItem('informacoes')
+    window.location.href = './index.html';
+    
+}
+
+window.addEventListener('load', () => {
+    if(localStorage.getItem('informacoes')) {
+        // document.getElementById('perfil').style.display = "block"
+    } else {
+        // remove a div de perfil
+    }
+})
