@@ -26,7 +26,7 @@
     <link rel="icon" href="./assets/figure.png">
     <title>Bizarro</title>
 </head>
-
+ 
 <body>
     <header>
         <a href="./index.html">
@@ -35,12 +35,12 @@
                     <h1 id="nome">BIZARRO</h1>
             </div>
         </a>
-
+ 
         <a href="./catalogo.html"><div id="Search">
             <input id="textSearch" type="text" placeholder="Procure por qualquer coisa!">
             <img src="./assets/search.svg" id="lupa">
         </div></a>
-
+ 
         <div id="acesso">
             <a href="./carrinho.html"><img src="./assets/cart3.svg" class="carrinhoECurtidos" id="carrinho"></a>
             <a href="./curtidos.html"><img src="./assets/heart-fill.svg" class="carrinhoECurtidos"></a>
@@ -57,11 +57,24 @@
             <div class="profile-info">
                 <h2 id="nomeUsuario">Nome do usuário</h2>
                 <p id="emailUsuario">email</p>
+                <p id="admin">Admin</p>
             </div>
-            <button class="edit-button">Editar perfil</button>
+            <button class="edit-button" onclick="editarPerfil()">Editar perfil</button>
+        </div>
+ 
+        <div id="ModalScreen" class="Modal">
+            <div class="modal-perfil">
+                <span class="sair">&times;</span>
+                <p>Modifique seu nome:</p>
+                <input type="text" id="ModifyName">
+                <p>Modifique seu e-mail:</p>
+                <input type="text" id="ModifyEmail">
+                <button id="Confirm" class="CustomConfirm">Confirmar</button>
+            </div>
         </div>
     </main>
-
+ 
     <script src="./script-perfil.js"></script>
 </body>
 </html>
+ 

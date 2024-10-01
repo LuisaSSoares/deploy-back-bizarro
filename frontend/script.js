@@ -1,6 +1,6 @@
 let inputElement = document.querySelector('#Search');
 let listElement = document.querySelector('#listaCatalogo');
-let itemElement = listElement.querySelectorAll('.produto');
+// let itemElement = listElement.querySelectorAll('.produto');
 let anuncio = document.querySelector('#title');
 
 inputElement.addEventListener("input", (e) => {
@@ -18,4 +18,9 @@ inputElement.addEventListener("input", (e) => {
   } else {
     anuncio.style.display = "none";
   }
+})
+
+window.addEventListener("load", () => {
+  let dados = JSON.parse(localStorage.getItem('informacoes'))
+  console.log(dados)
 })

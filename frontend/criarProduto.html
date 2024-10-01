@@ -44,31 +44,30 @@
             <div id="acesso">
                 <a href="./carrinho.html"><img src="./assets/cart3.svg" class="carrinhoECurtidos" id="carrinho"></a>
                 <a href="./curtidos.html"><img src="./assets/heart-fill.svg" class="carrinhoECurtidos"></a>
-                <a><img src="./assets/person-circle.svg" class="carrinhoECurtidos" id="perfil"></a>
+                <a paginaPerfil()><img src="./assets/person-circle.svg" class="carrinhoECurtidos" id="perfil"></a>
             </div>
         </header>
 
         <main class="form-container">
-            <form id="form-cadastrar-produto">
-                <div class="product-image">
-                    <img src="./assets/add-image.png" alt="Add Image" id="product-img">
+            <form id="form-cadastrar-produto" enctype="multipart/form-data">
+                <div class="mb-3">
+                    <label for="nomeProduto" class="form-label">Nome do Produto</label>
+                    <input type="text" class="form-control" id="nomeProduto" required>
                 </div>
-                <div class="form-content">
-                    <div class="mb-3">
-                        <label for="nomeProduto" class="form-label">Nome do Produto</label>
-                        <input type="text" class="form-control" id="nomeProduto" required>
-                    </div>
-                    <div class="mb-3">
-                        <label for="precoProduto" class="form-label">Valor</label>
-                        <input type="number" step="0.01" class="form-control" id="precoProduto" required>
-                    </div>
-                    <div class="mb-3">
-                        <label for="descricaoProduto" class="form-label">Descrição do Produto</label>
-                        <textarea class="form-control" id="descricaoProduto" rows="3" required></textarea>
-                    </div>
-                    <button type="submit" class="btn-submit">Cadastrar Produto</button>
+                <div class="mb-3">
+                    <label for="precoProduto" class="form-label">Preço</label>
+                    <input type="number" step="0.01" class="form-control" id="precoProduto" required>
                 </div>
-            </form>
+                <div class="mb-3">
+                    <label for="descricaoProduto" class="form-label">Descrição do Produto</label>
+                    <textarea class="form-control" id="descricaoProduto" rows="3" required></textarea>
+                </div>
+                <div class="mb-3">
+                    <label for="imagemProduto" class="form-label">Imagem do Produto</label>
+                    <input type="file" class="form-control" id="imagemProduto" required>
+                </div>
+                <button type="submit" class="btn-submit">Cadastrar Produto</button>
+            </form>            
         </main>
     
         <script src="./script-criar-produto.js"></script>

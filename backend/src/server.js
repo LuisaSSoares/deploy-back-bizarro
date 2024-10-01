@@ -3,6 +3,7 @@ const cors = require('cors');
 const bcrypt = require('bcrypt');
 const session = require('express-session');
 const connection = require('./db_config'); // Ensure this path is correct
+const upload = require('./multer'); // Multer configuration for handling file uploads
 
 const port = 3013;
 const app = express();
@@ -18,19 +19,18 @@ app.use(session({
     cookie: { secure: false } // Set to true if using HTTPS
 }));
 
+// Start the server
 app.listen(port, () => console.log(`Server running on port ${port}`));
 
-// ROTAS DE CADASTRO DO USUARIO
+// ---------------------- USER ROUTES ----------------------- //
 
-// Rota para cadastrar um novo usuário (perfil padrão é 'usuario')
+// User registration route
 app.post('/usuario/cadastrar', async (request, response) => {
     const { nome, cpf, email, telefone, senha } = request.body;
 
     // Hash the password before storing it
     const hashedPassword = await bcrypt.hash(senha, 10);
-
-    // Set perfil to 'usuario' by default
-    const perfil = 'usuario';
+    const perfil = 'usuario'; // Default profile is 'usuario'
 
     const params = [nome, cpf, email, telefone, hashedPassword, perfil];
     const query = "INSERT INTO usuario(nome, cpf, email, telefone, senha, perfil) VALUES(?, ?, ?, ?, ?, ?);";
@@ -52,6 +52,7 @@ app.post('/usuario/cadastrar', async (request, response) => {
     });
 });
 
+// User login route
 app.post('/usuario/login', (req, res) => {
     const { email, senha } = req.body;
 
@@ -68,10 +69,9 @@ app.post('/usuario/login', (req, res) => {
 
         if (results.length > 0) {
             const user = results[0];
-
             const passwordMatch = await bcrypt.compare(senha, user.senha);
             if (passwordMatch) {
-                // Creating a session for the user
+                // Create a session for the user
                 req.session.user = {
                     id: user.idusuario,
                     email: user.email,
@@ -110,28 +110,55 @@ function checkAdmin(req, res, next) {
     }
 }
 
-// Rota GET para listar usuários (todos os perfis podem acessar)
-app.get('/usuarios/listar', (request, response) => {
-    const query = "SELECT * FROM usuario";
+// ---------------------- PRODUCT ROUTES ----------------------- //
+
+// Route to list all products
+app.get('/produtos/listar', (request, response) => {
+    const query = "SELECT * FROM produto";
 
     connection.query(query, (err, results) => {
         if (results) {
             response.status(200).json({
                 success: true,
-                message: "Sucesso!",
+                message: "Produtos carregados com sucesso!",
                 data: results
             });
         } else {
             response.status(400).json({
                 success: false,
-                message: "Sem Sucesso!",
+                message: "Erro ao carregar produtos",
                 data: err
             });
         }
     });
 });
 
-// Rota PUT para editar produto (apenas admin pode editar)
+// Route to create a new product (Admin only)
+app.post('/produtos/cadastrar', upload.single('imagem'), checkAdmin, (request, response) => {
+    const { nome, preco, descricao } = request.body;
+    const imagem = `/uploads/${request.file.filename}`; // Get the image path from multer
+
+    const params = [nome, preco, descricao, imagem];
+    const query = "INSERT INTO produto(nome, preco, descricao, imagem) VALUES(?, ?, ?, ?);";
+
+    connection.query(query, params, (err, results) => {
+        if (results) {
+            response.status(201).json({
+                success: true,
+                message: "Produto cadastrado com sucesso!",
+                data: results
+            });
+        } else {
+            response.status(400).json({
+                success: false,
+                message: "Erro ao cadastrar o produto",
+                data: err
+            });
+        }
+    });
+});
+
+// Route to edit an existing product (Admin only)
 app.put('/produtos/editar/:id', checkAdmin, (req, res) => {
     const { id } = req.params;
     const { nome, preco, descricao, imagem } = req.body;
@@ -155,7 +182,7 @@ app.put('/produtos/editar/:id', checkAdmin, (req, res) => {
     });
 });
 
-// Rota DELETE para deletar um produto do catálogo (apenas admin pode deletar)
+// Route to delete a product (Admin only)
 app.delete('/produtos/excluir/:id', checkAdmin, (request, response) => {
     const { id } = request.params;
     const query = "DELETE FROM produto WHERE idproduto = ?";
@@ -176,90 +203,9 @@ app.delete('/produtos/excluir/:id', checkAdmin, (request, response) => {
     });
 });
 
-// Rota POST para curtir um produto
-app.post('/curtir', (request, response) => {
-    const { usuarioId, produtoId } = request.body;
+// ---------------------- CART ROUTES ----------------------- //
 
-    if (!usuarioId || !produtoId) {
-        response.status(400).json({
-            success: false,
-            message: 'Usuário e produto são obrigatórios'
-        });
-        return;
-    }
-
-    const query = "INSERT INTO curtidas (usuario_id, produto_id) VALUES (?, ?)";
-    connection.query(query, [usuarioId, produtoId], (err, results) => {
-        if (err) {
-            response.status(500).json({
-                success: false,
-                message: 'Erro ao curtir produto',
-                data: err
-            });
-        } else {
-            response.status(200).json({
-                success: true,
-                message: 'Produto curtido com sucesso',
-                data: results
-            });
-        }
-    });
-});
-
-// Rota GET para obter produtos curtidos de um usuário
-app.get('/produtos/curtidos/:id', (request, response) => {
-    const usuarioId = request.params.id;
-    const query = 'SELECT p.* FROM produto p JOIN curtidas c ON p.idproduto = c.produto_id WHERE c.usuario_id = ?';
-
-    connection.query(query, [usuarioId], (err, results) => {
-        if (err) {
-            response.status(500).json({
-                success: false,
-                message: 'Erro ao procurar produtos curtidos',
-                error: err
-            });
-        }
-
-        if (results.length > 0) {
-            response.status(200).json({
-                success: true,
-                message: 'Produtos curtidos encontrados',
-                data: results
-            });
-        } else {
-            response.status(400).json({
-                success: false,
-                message: 'Nenhum produto curtido encontrado'
-            });
-        }
-    });
-});
-
-// Rota PUT pra editar o perfil do usuario
-app.put('/usuario/editar/:id', (req, res) => {    
-    const params = [req.body.nome, req.body.email, req.params.id];
-
-    const query = "UPDATE usuario SET nome = ?, email = ? WHERE idusuario = ?";
-    
-    connection.query(query, params, (err, results) => {
-        console.log(err, results)
-        if (err) {
-            return res.status(500).json({
-                success: false,
-                message: "Erro ao editar o perfil do usuário",
-                error: err
-            });
-        }
-        res.status(200).json({
-            success: true,
-            message: "Perfil do usuário atualizado com sucesso",
-            data: results
-        });
-    });
-});
-
-
-// Rota POST para adicionar um produto ao carrinho
+// Route to add a product to the cart
 app.post('/carrinho/adicionar', (request, response) => {
     const { usuario_id, produto_id } = request.body;
 
@@ -290,3 +236,34 @@ app.post('/carrinho/adicionar', (request, response) => {
         }
     });
 });
+
+// Route to get products from the user's cart
+app.get('/carrinho/:usuario_id', (request, response) => {
+    const usuario_id = request.params.usuario_id;
+
+    const query = `SELECT p.* FROM produto p
+                   JOIN carrinho c ON p.idproduto = c.produto_id
+                   WHERE c.usuario_id = ?`;
+
+    connection.query(query, [usuario_id], (err, results) => {
+        if (results) {
+            response.status(200).json({
+                success: true,
+                message: "Carrinho carregado com sucesso!",
+                data: results
+            });
+        } else {
+            response.status(400).json({
+                success: false,
+                message: "Erro ao carregar o carrinho",
+                data: err
+            });
+        }
+    });
+});
+
+// ---------------------- IMAGE UPLOADS ----------------------- //
+
+// Static folder for product images
+app.use('/uploads', express.static(__dirname + '/produtos'));
+
