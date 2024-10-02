@@ -109,7 +109,50 @@ function checkAdmin(req, res, next) {
         });
     }
 }
-
+app.put('/usuario/editar/:id', (req, res) => {    
+    const params = [req.body.nome, req.body.email, req.params.id];
+ 
+    const query = "UPDATE usuario SET nome = ?, email = ? WHERE idusuario = ?";
+    
+    connection.query(query, params, (err, results) => {
+        console.log(err, results)
+        if (err) {
+            return res.status(500).json({
+                success: false,
+                message: "Erro ao editar o perfil do usuário",
+                error: err
+            });
+        }
+        res.status(200).json({
+            success: true,
+            message: "Perfil do usuário atualizado com sucesso",
+            data: results
+        });
+    });
+});
+ 
+// Rota GET para listar usuários (todos os perfis podem acessar)
+app.get('/usuario/listar', (request, response) => {
+    const query = "SELECT * FROM usuario";
+ 
+    connection.query(query, (err, results) => {
+        if (results) {
+            response.status(200).json({
+                success: true,
+                message: "Sucesso!",
+                data: results
+            });
+        } else {
+            response.status(400).json({
+                success: false,
+                message: "Sem Sucesso!",
+                data: err
+            });
+        }
+    });
+});
+ 
+ 
 // ---------------------- PRODUCT ROUTES ----------------------- //
 
 // Route to list all products
