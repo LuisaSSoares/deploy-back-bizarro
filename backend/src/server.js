@@ -1,312 +1,176 @@
-const express = require('express');
-const cors = require('cors');
-const bcrypt = require('bcrypt');
-const session = require('express-session');
-const connection = require('./db_config'); // Ensure this path is correct
-const upload = require('./multer'); // Multer configuration for handling file uploads
-
-const port = 3013;
+const express = require("express");
 const app = express();
+const port = 3013;
+const multer = require("multer");
+const db = require("./db_config");
+const cors = require("cors");
 
-app.use(cors());
 app.use(express.json());
+app.use(cors());
+app.use("/uploads", express.static("src/produtos"));
 
-// Set up session management
-app.use(session({
-    secret: 'your-secret-key', // Replace with your own secret
-    resave: false,
-    saveUninitialized: true,
-    cookie: { secure: false } // Set to true if using HTTPS
-}));
-
-// Start the server
-app.listen(port, () => console.log(`Server running on port ${port}`));
-
-// ---------------------- USER ROUTES ----------------------- //
-
-// User registration route
-app.post('/usuario/cadastrar', async (request, response) => {
-    const { nome, cpf, email, telefone, senha } = request.body;
-
-    // Hash the password before storing it
-    const hashedPassword = await bcrypt.hash(senha, 10);
-    const perfil = 'usuario'; // Default profile is 'usuario'
-
-    const params = [nome, cpf, email, telefone, hashedPassword, perfil];
-    const query = "INSERT INTO usuario(nome, cpf, email, telefone, senha, perfil) VALUES(?, ?, ?, ?, ?, ?);";
-
-    connection.query(query, params, (err, results) => {
-        if (results) {
-            response.status(201).json({
-                success: true,
-                message: "Usuário cadastrado com sucesso!",
-                data: results
-            });
-        } else {
-            response.status(400).json({
-                success: false,
-                message: "Erro ao cadastrar o usuário",
-                data: err
-            });
-        }
-    });
+// Configurando o multer para upload de arquivos
+const storage = multer.diskStorage({
+  destination: (req, file, cb) => {
+    cb(null, "./src/produtos");
+  },
+  filename: (req, file, cb) => {
+    const fileName = file.originalname.replace(/\s+/g, "_") + "_" + Date.now();
+    cb(null, fileName);
+  },
 });
 
-// User login route
-app.post('/usuario/login', (req, res) => {
-    const { email, senha } = req.body;
+const upload = multer({ storage: storage });
 
-    const query = "SELECT * FROM usuario WHERE email = ?";
+// Rota para servir arquivos estáticos (imagens)
+app.use("/uploads", express.static("src/produtos"));
 
-    connection.query(query, [email], async (err, results) => {
-        if (err) {
-            console.error('Erro ao realizar login:', err);
-            return res.status(500).json({
-                success: false,
-                message: 'Erro interno no servidor'
-            });
-        }
+// ROTAS PARA USUÁRIOS
 
-        if (results.length > 0) {
-            const user = results[0];
-            const passwordMatch = await bcrypt.compare(senha, user.senha);
-            if (passwordMatch) {
-                // Create a session for the user
-                req.session.user = {
-                    id: user.idusuario,
-                    email: user.email,
-                    perfil: user.perfil
-                };
+// Cadastro de usuários
+app.post("/usuario/cadastrar", (req, res) => {
+  const { nome, email, telefone, cpf, senha } = req.body;
+  const sql = `INSERT INTO usuario (nome, email, telefone, cpf, senha) VALUES (?, ?, ?, ?, ?)`;
 
-                res.json({
-                    success: true,
-                    message: 'Login realizado com sucesso!',
-                    data: user
-                });
-            } else {
-                res.status(401).json({
-                    success: false,
-                    message: 'Senha incorreta'
-                });
-            }
-        } else {
-            res.status(404).json({
-                success: false,
-                message: 'Usuário não encontrado'
-            });
-        }
-    });
-});
-
-// Middleware to check if the user is an admin
-function checkAdmin(req, res, next) {
-    if (req.session.user && req.session.user.perfil === 'admin') {
-        return next();
+  db.query(sql, [nome, email, telefone, cpf, senha], (err, result) => {
+    if (err) {
+      console.log(err);
+      res.json({ success: false, message: "Erro ao cadastrar usuário." });
     } else {
-        return res.status(403).json({
-            success: false,
-            message: 'Acesso negado. Apenas administradores podem realizar essa ação.'
-        });
+      res.json({ success: true, message: "Usuário cadastrado com sucesso." });
     }
-}
-app.put('/usuario/editar/:id', (req, res) => {    
-    const params = [req.body.nome, req.body.email, req.params.id];
- 
-    const query = "UPDATE usuario SET nome = ?, email = ? WHERE idusuario = ?";
-    
-    connection.query(query, params, (err, results) => {
-        console.log(err, results)
-        if (err) {
-            return res.status(500).json({
-                success: false,
-                message: "Erro ao editar o perfil do usuário",
-                error: err
-            });
-        }
-        res.status(200).json({
-            success: true,
-            message: "Perfil do usuário atualizado com sucesso",
-            data: results
-        });
-    });
-});
- 
-// Rota GET para listar usuários (todos os perfis podem acessar)
-app.get('/usuario/listar', (request, response) => {
-    const query = "SELECT * FROM usuario";
- 
-    connection.query(query, (err, results) => {
-        if (results) {
-            response.status(200).json({
-                success: true,
-                message: "Sucesso!",
-                data: results
-            });
-        } else {
-            response.status(400).json({
-                success: false,
-                message: "Sem Sucesso!",
-                data: err
-            });
-        }
-    });
-});
- 
- 
-// ---------------------- PRODUCT ROUTES ----------------------- //
-
-// Route to list all products
-app.get('/produtos/listar', (request, response) => {
-    const query = "SELECT * FROM produto";
-
-    connection.query(query, (err, results) => {
-        if (results) {
-            response.status(200).json({
-                success: true,
-                message: "Produtos carregados com sucesso!",
-                data: results
-            });
-        } else {
-            response.status(400).json({
-                success: false,
-                message: "Erro ao carregar produtos",
-                data: err
-            });
-        }
-    });
+  });
 });
 
-// Route to create a new product (Admin only)
-app.post('/produtos/cadastrar', upload.single('imagem'), checkAdmin, (request, response) => {
-    const { nome, preco, descricao } = request.body;
-    const imagem = `/uploads/${request.file.filename}`; // Get the image path from multer
+// Login de usuário
+app.post("/usuario/login", (req, res) => {
+  const { email, senha } = req.body;
+  const sql = `SELECT * FROM usuario WHERE email = ? AND senha = ?`;
 
-    const params = [nome, preco, descricao, imagem];
-    const query = "INSERT INTO produto(nome, preco, descricao, imagem) VALUES(?, ?, ?, ?);";
-
-    connection.query(query, params, (err, results) => {
-        if (results) {
-            response.status(201).json({
-                success: true,
-                message: "Produto cadastrado com sucesso!",
-                data: results
-            });
-        } else {
-            response.status(400).json({
-                success: false,
-                message: "Erro ao cadastrar o produto",
-                data: err
-            });
-        }
-    });
+  db.query(sql, [email, senha], (err, result) => {
+    if (err) {
+      res.json({ success: false, message: "Erro no login." });
+    } else if (result.length > 0) {
+      res.json({ success: true, data: result[0] });
+    } else {
+      res.json({ success: false, message: "Usuário ou senha incorretos." });
+    }
+  });
 });
 
-// Route to edit an existing product (Admin only)
-app.put('/produtos/editar/:id', checkAdmin, (req, res) => {
-    const { id } = req.params;
-    const { nome, preco, descricao, imagem } = req.body;
+// Edição de usuário
+app.put("/usuario/editar/:id", (req, res) => {
+  const { nome, email } = req.body;
+  const { id } = req.params;
+  const sql = `UPDATE usuario SET nome = ?, email = ? WHERE idusuario = ?`;
 
-    const query = "UPDATE produto SET nome = ?, preco = ?, descricao = ?, imagem = ? WHERE idproduto = ?";
-    const params = [nome, preco, descricao, imagem, id];
-
-    connection.query(query, params, (err, results) => {
-        if (err) {
-            return res.status(500).json({
-                success: false,
-                message: "Erro ao editar o produto",
-                error: err
-            });
-        }
-        res.status(200).json({
-            success: true,
-            message: "Produto editado com sucesso",
-            data: results
-        });
-    });
+  db.query(sql, [nome, email, id], (err, result) => {
+    if (err) {
+      res.json({ success: false, message: "Erro ao atualizar usuário." });
+    } else {
+      res.json({ success: true, message: "Usuário atualizado com sucesso." });
+    }
+  });
 });
 
-// Route to delete a product (Admin only)
-app.delete('/produtos/excluir/:id', checkAdmin, (request, response) => {
-    const { id } = request.params;
-    const query = "DELETE FROM produto WHERE idproduto = ?";
+// ROTAS PARA PRODUTOS
 
-    connection.query(query, [id], (err, results) => {
-        if (err) {
-            return response.status(500).json({
-                success: false,
-                message: "Erro ao excluir o produto",
-                error: err
-            });
-        }
-        response.status(200).json({
-            success: true,
-            message: "Produto excluído com sucesso",
-            data: results
-        });
-    });
-});
+// Cadastro de produtos
+app.post("/produtos/cadastrar", upload.single("imagem"), (req, res) => {
+    const { nome, preco, descricao } = req.body;
+    const imagem = req.file ? req.file.filename : null;
 
-// ---------------------- CART ROUTES ----------------------- //
-
-// Route to add a product to the cart
-app.post('/carrinho/adicionar', (request, response) => {
-    const { usuario_id, produto_id } = request.body;
-
-    if (!usuario_id || !produto_id) {
-        response.status(400).json({
-            success: false,
-            message: 'Usuário e produto são obrigatórios'
-        });
-        return;
+    if (!imagem) {
+        return res.status(400).json({ success: false, message: "Erro no upload da imagem" });
     }
 
-    const params = [usuario_id, produto_id];
-    const query = "INSERT INTO carrinho(usuario_id, produto_id) VALUES(?, ?);";
-
-    connection.query(query, params, (err, results) => {
-        if (results) {
-            response.status(201).json({
-                success: true,
-                message: "Produto adicionado ao carrinho com sucesso!",
-                data: results
-            });
-        } else {
-            response.status(400).json({
-                success: false,
-                message: "Erro ao adicionar o produto ao carrinho.",
-                data: err
-            });
+    const sql = `INSERT INTO produto (nome, preco, descricao, imagem) VALUES (?, ?, ?, ?)`;
+    db.query(sql, [nome, preco, descricao, imagem], (err, result) => {
+        if (err) {
+            return res.status(500).json({ success: false, message: "Erro ao cadastrar o produto" });
         }
+        res.status(201).json({ success: true, message: "Produto cadastrado com sucesso" });
     });
 });
 
-// Route to get products from the user's cart
-app.get('/carrinho/:usuario_id', (request, response) => {
-    const usuario_id = request.params.usuario_id;
+// Listar produtos
+app.get("/produtos/listar", (req, res) => {
+  const sql = "SELECT * FROM produto";
 
-    const query = `SELECT p.* FROM produto p
-                   JOIN carrinho c ON p.idproduto = c.produto_id
-                   WHERE c.usuario_id = ?`;
-
-    connection.query(query, [usuario_id], (err, results) => {
-        if (results) {
-            response.status(200).json({
-                success: true,
-                message: "Carrinho carregado com sucesso!",
-                data: results
-            });
-        } else {
-            response.status(400).json({
-                success: false,
-                message: "Erro ao carregar o carrinho",
-                data: err
-            });
-        }
-    });
+  db.query(sql, (err, result) => {
+    if (err) {
+      res.json({ success: false, message: "Erro ao listar os produtos." });
+    } else {
+      res.json({ success: true, data: result });
+    }
+  });
 });
 
-// ---------------------- IMAGE UPLOADS ----------------------- //
+// Edição de produto
+app.put("/produtos/editar/:id", upload.single("imagem"), (req, res) => {
+  const { nome, preco, descricao } = req.body;
+  const { id } = req.params;
+  const imagem = req.file ? req.file.filename : null;
 
-// Static folder for product images
-app.use('/uploads', express.static(__dirname + '/produtos'));
+  const sql = `UPDATE produto SET nome = ?, preco = ?, descricao = ?, imagem = ? WHERE idproduto = ?`;
 
+  db.query(sql, [nome, preco, descricao, imagem, id], (err, result) => {
+    if (err) {
+      res.json({ success: false, message: "Erro ao atualizar o produto." });
+    } else {
+      res.json({ success: true, message: "Produto atualizado com sucesso." });
+    }
+  });
+});
+
+// Excluir produto
+app.delete("/produtos/excluir/:id", (req, res) => {
+  const { id } = req.params;
+  const sql = `DELETE FROM produto WHERE idproduto = ?`;
+
+  db.query(sql, [id], (err, result) => {
+    if (err) {
+      res.json({ success: false, message: "Erro ao excluir o produto." });
+    } else {
+      res.json({ success: true, message: "Produto excluído com sucesso." });
+    }
+  });
+});
+
+// ROTAS PARA CARRINHO
+
+// Adicionar produto ao carrinho
+app.post("/carrinho/adicionar", (req, res) => {
+  const { usuario_id, produto_id, quantidade } = req.body;
+  const sql = `INSERT INTO carrinho (usuario_id, produto_id, quantidade) VALUES (?, ?, ?)`;
+
+  db.query(sql, [usuario_id, produto_id, quantidade], (err, result) => {
+    if (err) {
+      res.json({ success: false, message: "Erro ao adicionar produto ao carrinho." });
+    } else {
+      res.json({ success: true, message: "Produto adicionado ao carrinho." });
+    }
+  });
+});
+
+// Listar produtos no carrinho de um usuário
+app.get("/carrinho/:usuario_id", (req, res) => {
+  const { usuario_id } = req.params;
+  const sql = `SELECT p.nome, p.preco, p.imagem, c.quantidade 
+               FROM carrinho c 
+               JOIN produto p ON c.produto_id = p.idproduto 
+               WHERE c.usuario_id = ?`;
+
+  db.query(sql, [usuario_id], (err, result) => {
+    if (err) {
+      res.json({ success: false, message: "Erro ao listar os produtos do carrinho." });
+    } else {
+      res.json({ success: true, data: result });
+    }
+  });
+});
+
+// Iniciar o servidor
+app.listen(port, () => {
+  console.log(`Servidor rodando na porta ${port}`);
+});
