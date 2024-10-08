@@ -1,8 +1,10 @@
 document.addEventListener('DOMContentLoaded', async () => {
+    // Fetch user information from localStorage
     const dados = JSON.parse(localStorage.getItem('informacoes'));
- 
-    if (dados.perfil === 'admin'){
-        document.getElementById('cadastrar-produto-btn').classList.remove('hidden')
+
+    // If the user is an admin, show the "Cadastrar Produto" button
+    if (dados && dados.perfil === 'admin') {
+        document.getElementById('cadastrar-produto-btn').classList.remove('hidden');
     }
     
     try {
@@ -15,7 +17,6 @@ document.addEventListener('DOMContentLoaded', async () => {
         });
 
         const result = await response.json(); // Parse the response as JSON
-
         console.log('Response from server:', result); // Debugging: log the server response
 
         if (result.success) {
@@ -27,6 +28,9 @@ document.addEventListener('DOMContentLoaded', async () => {
                 console.error('Element #listaCatalogo not found in the DOM.');
                 return;
             }
+
+            // Clear the catalog before appending new products
+            catalogElement.innerHTML = '';
 
             // Iterate over the product data and create product cards for each product
             productData.forEach(product => {
@@ -50,16 +54,16 @@ document.addEventListener('DOMContentLoaded', async () => {
                 catalogElement.innerHTML += productCard;
             });
 
-            // Add click event listeners to each product to store the product ID and redirect to produto.html
-            let produtos = document.querySelectorAll('.produto');
-            produtos.forEach(produto => {
-                produto.addEventListener('click', () => {
-                    let id = produto.getAttribute('data-id'); // Get the product ID from the data-id attribute
-                    console.log('Product ID:', id); // Debugging: log the product ID
-                    localStorage.setItem('produtoSelecionadoID', id); // Store the product ID in localStorage
-                    window.location.href = './produto.html'; // Redirect to the product details page
-                });
-            });
+           // Add click event listeners to each product to store the product ID and redirect to produto.html
+           let produtos = document.querySelectorAll('.produto');
+           produtos.forEach(produto => {
+               produto.addEventListener('click', () => {
+                   let id = produto.getAttribute('data-id'); // Get the product ID from data-id attribute
+                   console.log('Product ID:', id); // Debugging: check if the correct ID is being retrieved
+                   localStorage.setItem('produtoSelecionadoID', id); // Store product ID in localStorage
+                   window.location.href = './produto.html'; // Redirect to the product details page
+               });
+           });           
 
         } else {
             console.error('Erro ao listar produtos:', result.message); // Log an error if products cannot be listed

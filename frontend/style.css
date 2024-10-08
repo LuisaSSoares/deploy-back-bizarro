@@ -683,7 +683,20 @@ textarea {
     align-self: flex-start;
     margin-left: 30px;
 }
- 
+
+#btn-excluir {
+    background-color: red;
+    color: white;
+    padding: 10px;
+    border-radius: 5px;
+    border: none;
+    cursor: pointer;
+}
+
+#btn-excluir:hover {
+    background-color: darkred;
+}
+
 /* COMPRA */
 #agradecimento {
     display: flex;

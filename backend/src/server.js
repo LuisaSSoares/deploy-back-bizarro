@@ -9,6 +9,18 @@ app.use(express.json());
 app.use(cors());
 app.use("/uploads", express.static("src/produtos"));
 
+// Middleware function to validate if the user is an admin
+function checkAdmin(req, res, next) {
+  if (req.session.user && req.session.user.perfil === 'admin') {
+      return next(); // If the user is an admin, proceed to the next middleware or route handler
+  } else {
+      return res.status(403).json({
+          success: false,
+          message: 'Acesso negado. Apenas administradores podem realizar essa ação.' // Access denied message
+      });
+  }
+}
+
 // Configurando o multer para upload de arquivos
 const storage = multer.diskStorage({
   destination: (req, file, cb) => {
@@ -106,36 +118,64 @@ app.get("/produtos/listar", (req, res) => {
   });
 });
 
-// Apresentar na pagina produto.html
+// Rota GET para obter os detalhes de um produto pelo ID
 app.get('/produtos/:id', (req, res) => {
   const { id } = req.params;
-  const sql = 'SELECT * FROM produto WHERE idproduto = ?';
+  const query = "SELECT * FROM produto WHERE idproduto = ?";
 
-  db.query(sql, [id], (err, result) => {
+  // Use `db.query` instead of `connection.query`
+  db.query(query, [id], (err, results) => {
       if (err) {
-          res.status(500).json({ success: false, message: 'Erro ao buscar o produto.' });
-      } else if (result.length === 0) {
-          res.status(404).json({ success: false, message: 'Produto não encontrado.' });
+          console.error("Error fetching product details from database:", err); // Log the database error
+          return res.status(500).json({
+              success: false,
+              message: "Erro ao buscar detalhes do produto",
+              error: err
+          });
+      }
+
+      if (results.length > 0) {
+          return res.status(200).json({
+              success: true,
+              data: results[0] // Return the first (and only) product
+          });
       } else {
-          res.json({ success: true, data: result[0] });
+          console.warn("Produto não encontrado:", id); // Log if product is not found
+          return res.status(404).json({
+              success: false,
+              message: "Produto não encontrado"
+          });
       }
   });
 });
 
 // Edição de produto
-app.put("/produtos/editar/:id", upload.single("imagem"), (req, res) => {
-  const { nome, preco, descricao } = req.body;
-  const { id } = req.params;
-  const imagem = req.file ? req.file.filename : null;
+app.post('/produtos/editar', upload.single('imagemProduto'), (req, res) => {
+  const { id, nome, preco, descricao } = req.body;
+  let imagem = req.body.imagem; // Existing image
 
-  const sql = `UPDATE produto SET nome = ?, preco = ?, descricao = ?, imagem = ? WHERE idproduto = ?`;
+  // Check if a new image was uploaded
+  if (req.file) {
+      imagem = req.file.filename; // Use the new image if uploaded
+  }
 
-  db.query(sql, [nome, preco, descricao, imagem, id], (err, result) => {
-    if (err) {
-      res.json({ success: false, message: "Erro ao atualizar o produto." });
-    } else {
-      res.json({ success: true, message: "Produto atualizado com sucesso." });
-    }
+  const query = "UPDATE produto SET nome = ?, preco = ?, descricao = ?, imagem = ? WHERE idproduto = ?";
+  const params = [nome, preco, descricao, imagem, id];
+
+  db.query(query, params, (err, results) => {
+      if (err) {
+          console.error("Error updating product:", err);
+          return res.status(500).json({
+              success: false,
+              message: "Erro ao atualizar o produto",
+              error: err
+          });
+      }
+
+      return res.status(200).json({
+          success: true,
+          message: "Produto atualizado com sucesso"
+      });
   });
 });
 
@@ -152,6 +192,28 @@ app.delete("/produtos/excluir/:id", (req, res) => {
     }
   });
 });
+
+// Rota DELETE para deletar um produto do catálogo (apenas admin pode deletar)
+app.delete('/produtos/excluir/:id', checkAdmin, (request, response) => {
+  const { id } = request.params;
+  const query = "DELETE FROM produto WHERE idproduto = ?";
+
+  connection.query(query, [id], (err, results) => {
+      if (err) {
+          return response.status(500).json({
+              success: false,
+              message: "Erro ao excluir o produto",
+              error: err
+          });
+      }
+      response.status(200).json({
+          success: true,
+          message: "Produto excluído com sucesso",
+          data: results
+      });
+  });
+});
+
 
 // ROTAS PARA CARRINHO
 
