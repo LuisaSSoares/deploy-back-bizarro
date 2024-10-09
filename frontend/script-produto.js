@@ -2,10 +2,9 @@ document.addEventListener('DOMContentLoaded', async () => {
     let produtoSelecionadoID = localStorage.getItem('produtoSelecionadoID');
     let usuarioID = localStorage.getItem('usuarioID');
 
-    const addCartButton = document.getElementById('add-carrinho');
     const addLikedButton = document.getElementById('add-curtidos');
     const removeLikedButton = document.getElementById('remove-curtidos');
-    const editProductButton = document.getElementById('edit-btn');
+    const editProductButton = document.getElementById('editar-btn');
     const deleteProductButton = document.getElementById('btn-excluir');
 
     // Fetch user information from localStorage
@@ -31,7 +30,7 @@ document.addEventListener('DOMContentLoaded', async () => {
             const product = result.data;
 
             // Set product details on the page
-            document.getElementById('img-produto').src = `http://localhost:3013/uploads/${product.imagem}`;
+            document.getElementById('img-produto').src = `http://localhost:3013/uploads/${product.imagem.replace(/\s/g, '%20')}`;
             document.getElementById('nome-produto').textContent = product.nome;
             document.getElementById('valor-produto').textContent = `R$ ${parseFloat(product.preco).toFixed(2)}`;
             document.getElementById('descricao').textContent = product.descricao;
@@ -68,12 +67,13 @@ document.addEventListener('DOMContentLoaded', async () => {
 
                 // Toggle visibility of Add/Remove Curtidos buttons
                 if (dados && dados.perfil != 'admin') {
-                if (isCurtido) {
-                    if (addLikedButton) addLikedButton.style.display = 'none';
-                    if (removeLikedButton) removeLikedButton.style.display = 'flex';
-                } else {
-                    if (addLikedButton) addLikedButton.style.display = 'flex';
-                    if (removeLikedButton) removeLikedButton.style.display = 'none';
+                    if (isCurtido) {
+                        if (addLikedButton) addLikedButton.style.display = 'none';
+                        if (removeLikedButton) removeLikedButton.style.display = 'flex';
+                    } else {
+                        if (addLikedButton) addLikedButton.style.display = 'flex';
+                        if (removeLikedButton) removeLikedButton.style.display = 'none';
+                    }
                 }
             } else {
                 console.error('Erro ao carregar curtidos:', curtidosResult.message);
@@ -84,7 +84,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     } catch (error) {
         console.error('Erro ao conectar com o servidor:', error);
     }
-    }
+
     // Add product to cart
     if (addCartButton) {
         addCartButton.addEventListener('click', async () => {
@@ -104,8 +104,7 @@ document.addEventListener('DOMContentLoaded', async () => {
                 const result = await response.json();
                 if (response.ok && result.success) {
                     alert('Produto adicionado ao carrinho com sucesso.');
-                    // Optionally, disable the add to cart button after adding to cart
-                    addCartButton.disabled = true;
+                    addCartButton.disabled = true; // Disable button after adding
                 } else {
                     console.error('Erro ao adicionar ao carrinho:', result.message);
                 }

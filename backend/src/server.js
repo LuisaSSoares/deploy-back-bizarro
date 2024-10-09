@@ -87,6 +87,17 @@ app.put("/usuario/editar/:id", (req, res) => {
 
 // ROTAS PARA PRODUTOS
 
+app.get('/curtidos/:usuarioID', (req, res) => {
+  const usuarioID = req.params.usuarioID;
+
+  if (!usuarioID) {
+      return res.status(400).json({ success: false, message: 'Usuário não encontrado.' });
+  }
+
+  // Sua lógica de buscar produtos curtidos para o usuário
+});
+
+
 // Cadastro de produtos
 app.post("/produtos/cadastrar", upload.single("imagem"), (req, res) => {
     const { nome, preco, descricao } = req.body;
@@ -207,6 +218,31 @@ app.delete('/produtos/excluir/:id', checkAdmin, (request, response) => {
   });
 });
 
+// Route to fetch products categorized as 'desconto'
+app.get('/produtos/categoria/desconto', (req, res) => {
+  const sql = 'SELECT * FROM produto WHERE categoria = "desconto"';
+
+  db.query(sql, (err, result) => {
+      if (err) {
+          return res.status(500).json({ success: false, message: 'Erro ao buscar produtos com desconto.' });
+      }
+
+      res.json({ success: true, data: result });
+  });
+});
+
+// Route to fetch products categorized as 'regular'
+app.get('/produtos/categoria/regular', (req, res) => {
+  const sql = 'SELECT * FROM produto WHERE categoria = "regular"';
+
+  db.query(sql, (err, result) => {
+      if (err) {
+          return res.status(500).json({ success: false, message: 'Erro ao buscar produtos regulares.' });
+      }
+
+      res.json({ success: true, data: result });
+  });
+});
 
 // ROTAS PARA CARRINHO
 

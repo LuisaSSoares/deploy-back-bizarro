@@ -60,7 +60,7 @@
                                 <i>misterioso</i>!
                             </p>
                         </div>
-                        <img src="./produtos/pao.png" alt="" id="imgPromocao">
+                        <img src="../backend/src/produtos/pao.png" alt="" id="imgPromocao">
                     </div>
                 </div>
                 <div class="carousel-item" data-bs-interval="10000">
@@ -68,12 +68,11 @@
                         <div id="containerDesconto">
                             <h1 id="tituloDesconto">Produtos com Desconto!</h1> 
                             <p id="subDesconto">Ate 15% de desconto SÓ HOJE!</p>
-                            <ul>
-                               <div class="ProDes">
-                                    <a href="./produto.html">
+                            <ul id="lista-produtos-desconto" class="ProDes">
+                                    <!-- <a href="./produto.html">
                                         <li>
                                             <div class="produto produtoCatalogo" id="pai" data-nome="Pai Ausente" data-imagem="./assets/produtos/pai ausente.jpeg" data-valor="R$180,00" data-descricao="Um produto que simboliza a ausência paterna. Presenteie seu amigo que não tem uma figura paterna!">
-                                                <img src="./produtos/pai ausente.jpeg" class="imgCatalogo">
+                                                <img src="../backend/src/produtos/pai ausente.jpeg" class="imgCatalogo">
                                                 <h1>Pai Ausente</h1>
                                                 <div class="precos">
                                                     <h3>R$180,00</h3>
@@ -86,11 +85,11 @@
 
                                             </div>
                                         </li>
-                                    </a> 
+                                    </a>
                                     <a href="./produto.html">
                                         <li>
-                                            <div class="produto produtoCatalogo" id="ovo" data-nome="Ovo Pré-quebrado" data-imagem="./produtos/ovo pre quebrado.jpg" data-valor="R$101,85" data-descricao="Um ovo que já vem pré-quebrado, pronto para ser usado em receitas sem a necessidade de quebrá-lo">
-                                                <img src="./produtos/ovo pre quebrado.jpg" class="imgCatalogo">
+                                            <div class="produto produtoCatalogo" id="ovo" data-nome="Ovo Pré-quebrado" data-imagem="../backend/src/produtos/ovo pre quebrado.jpg" data-valor="R$101,85" data-descricao="Um ovo que já vem pré-quebrado, pronto para ser usado em receitas sem a necessidade de quebrá-lo">
+                                                <img src="../backend/src/produtos/ovo pre quebrado.jpg" class="imgCatalogo">
                                                 <h1>Ovo Pré-quebrado</h1>
                                                 <div class="precos">
                                                     <h3>R$101,85</h3>
@@ -105,8 +104,8 @@
                                     </a> 
                                     <a href="./produto.html">
                                         <li>
-                                            <div class="produto produtoCatalogo" id="oxigenio" data-nome="Oxigênio Engarrafado" data-imagem="./produtos/oxigenio engarrafado.jpeg" data-valor="R$420,00" data-descricao="Oxigênio em uma garrafa, respire ar puro de verdade.">
-                                                <img src="./produtos/oxigenio engarrafado.jpeg" class="imgCatalogo">
+                                            <div class="produto produtoCatalogo" id="oxigenio" data-nome="Oxigênio Engarrafado" data-imagem="../backend/src/produtos/oxigenio engarrafado.jpeg" data-valor="R$420,00" data-descricao="Oxigênio em uma garrafa, respire ar puro de verdade.">
+                                                <img src="../backend/src/produtos/oxigenio engarrafado.jpeg" class="imgCatalogo">
                                                 <h1>Oxigênio Engarrafado</h1>
                                                 <div class="precos">
                                                     <h3>R$420,00</h3>
@@ -118,10 +117,9 @@
                                                 </div>
                                             </div>
                                         </li>
-                                    </a>                                
+                                    </a>  -->                             
                             </ul>
   
-                                </div>
                         </div>                          
                     </div>               
                 </div>
@@ -150,10 +148,10 @@
         </div>
 
         <ul id="lista">
-            <a href="./produto.html">
+            <!-- <a href="./produto.html">
                 <li>
-                    <div class="produto produtoDestaque" id="fantasmas" data-nome="Fantasminhas ajudantes personalizdos" data-imagem="./produtos/fantasminhas 2.jpeg" data-valor="R$100,00" data-descricao="Pequenos fantasmas que oferecem ajuda personalizada em diversas situações do dia a dia, desde encontrar chaves perdidas até lembrar compromissos.">
-                        <img src="./produtos/fantasminhas 2.jpeg" class="produtoImg">
+                    <div class="produto produtoDestaque" id="fantasmas" data-nome="Fantasminhas ajudantes personalizdos" data-imagem="../backend/src/produtos/fantasminhas 2.jpeg" data-valor="R$100,00" data-descricao="Pequenos fantasmas que oferecem ajuda personalizada em diversas situações do dia a dia, desde encontrar chaves perdidas até lembrar compromissos.">
+                        <img src="../backend/src/produtos/fantasminhas 2.jpeg" class="produtoImg">
                         <p>Fantasminhas ajudantes personalizados</p>
                         <p><b>R$100,00</b></p>
                         <div class="produtoCarrinhoCurtidos">
@@ -166,8 +164,8 @@
 
             <a href="./produto.html">
                 <li>
-                    <div class="produto produtoDestaque" id="Bizarro" data-nome="Bizarro" data-imagem="./produtos/bezerro bizarro.jpeg" data-valor="R$450,00" data-descricao="Compre um Bizarro.">
-                        <img src="./produtos/bezerro bizarro.jpeg" class="produtoImg">
+                    <div class="produto produtoDestaque" id="Bizarro" data-nome="Bizarro" data-imagem="../backend/src/produtos/bezerro bizarro.jpeg" data-valor="R$450,00" data-descricao="Compre um Bizarro.">
+                        <img src="../backend/src/produtos/bezerro bizarro.jpeg" class="produtoImg">
                         <p>Bizarro</p>
                         <p><b>R$450,00</b></p>
                         <div class="produtoCarrinhoCurtidos">
@@ -179,8 +177,8 @@
             </a>
             <a href="./produto.html">
                 <li>
-                    <div class="produto produtoDestaque" id="grama" data-nome="Grama de alfinete" data-imagem="./produtos/grama de alfinete.jpeg" data-valor="R$150,00" data-descricao="Uma grama artificial feita de pequenos alfinetes, para quem gosta de sensações táteis incomuns.">
-                        <img src="./produtos/grama de alfinete.jpeg"  class="produtoImg">
+                    <div class="produto produtoDestaque" id="grama" data-nome="Grama de alfinete" data-imagem="../backend/src/produtos/grama de alfinete.jpeg" data-valor="R$150,00" data-descricao="Uma grama artificial feita de pequenos alfinetes, para quem gosta de sensações táteis incomuns.">
+                        <img src="../backend/src/produtos/grama de alfinete.jpeg"  class="produtoImg">
                         <p>Grama de alfinete</p>
                         <p><b>R$150,00</b> p/alfinete</p>
                         <div class="produtoCarrinhoCurtidos">
@@ -189,7 +187,7 @@
                         </div>            
                     </div>
                 </li>
-            </a>
+            </a> -->
         </ul>
     </main>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
