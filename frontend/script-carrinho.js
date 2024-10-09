@@ -1,73 +1,110 @@
-document.addEventListener('DOMContentLoaded', () => {
-    let produtosCarrinho = JSON.parse(localStorage.getItem('produtosCarrinho')) || [];
-    let listaProdutos = document.getElementById('lista-produtos-carrinho');
-    let listaFinal = document.querySelector('#lista-final');
-    let aviso = document.querySelector('#aviso');
-    let btnfinalizar = document.querySelector('#btnFinalizar');
-    let btnComprar = document.querySelector('#buyBtn');
-    let totalElement = document.getElementById('total');
-    let totalValue = 0;
+document.addEventListener('DOMContentLoaded', async () => {
+    const usuarioID = localStorage.getItem('usuarioID');
+    
+    if (!usuarioID) {
+        alert('Erro: Usuário não logado.');
+        return;
+    }
 
-    if (produtosCarrinho.length === 0) {
-        aviso.style.display = 'flex';
-        btnfinalizar.style.display = 'none'
-    } else {
-        aviso.style.display = 'none';
-        btnfinalizar.style.display = 'flex'
-        produtosCarrinho.forEach(produto => {
-            listaProdutos.innerHTML += `
-                <a href="./produto.html">
-                    <li>
-                        <div class="produto produtoCatalogo" id="${produto.id}">
-                            <img src="${produto.imagem}" alt="" class="imgCatalogo">
-                            <p>${produto.nome}</p>
-                            <div class="precos">
-                                <h3>${produto.valor}</h3>
-                            </div>
-                        </div>
-                    </li>
-                </a>`;
+    try {
+        const response = await fetch(`http://localhost:3013/carrinho/${usuarioID}`, {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        });
 
-            listaFinal.innerHTML += `
-                <a href="./produto.html">
-                    <li>
-                        <div class="produtoFinal" id="${produto.id}">
-                            <img src="${produto.imagem}" alt="" id="imgFinal">
-                            <p><b>${produto.nome}</b></p>
-                            <p>${produto.valor}</p>
-                        </div>
-                    </li>
-                </a>`;
+        const result = await response.json();
 
-                let valor = parseFloat(produto.valor.replace('R$', '').replace('.', '').replace(',', '.'));
-                totalValue += valor;
-            });
+        if (result.success) {
+            const produtosCarrinho = result.data;
+            let listaProdutos = document.getElementById('lista-produtos-carrinho');
+            let listaFinal = document.querySelector('#lista-final');
+            let aviso = document.querySelector('#aviso');
+            let btnFinalizar = document.querySelector('#btnFinalizar');
+            let modal = document.getElementById('finalizar')
+            let totalElement = document.getElementById('total');
+            let totalValue = 0;
+
+            if (produtosCarrinho.length === 0) {
+                aviso.style.display = 'flex';
+                btnFinalizar.style.display = 'none';
+            } else {
+                aviso.style.display = 'none';
+                btnFinalizar.style.display = 'flex';
+                        btnFinalizar.addEventListener('click', () => {
+                            modal.style.display = 'flex'
+                        })
+                produtosCarrinho.forEach(produto => {
+                    listaProdutos.innerHTML += `
+                        <a href="./produto.html">
+                            <li>
+                                <div class="produto produtoCatalogo" id="${produto.idproduto}">
+                                    <img src="http://localhost:3013/uploads/${produto.imagem}" alt="" class="imgCatalogo">
+                                    <p>${produto.nome}</p>
+                                    <div class="precos">
+                                        <h3>R$ ${parseFloat(produto.preco).toFixed(2)}</h3>
+                                    </div>
+                                </div>
+                            </li>
+                        </a>`;
+
+                    listaFinal.innerHTML += `
+                        <a href="./produto.html">
+                            <li>
+                                <div class="produtoFinal" id="${produto.idproduto}">
+                                    <img src="http://localhost:3013/uploads/${produto.imagem}" alt="" id="imgFinal">
+                                    <p><b>${produto.nome}</b></p>
+                                    <p>R$ ${parseFloat(produto.preco).toFixed(2)}</p>
+                                </div>
+                            </li>
+                        </a>`;
+
+                    totalValue += parseFloat(produto.preco);
+                });
+            }
+
+            totalElement.textContent = `TOTAL: R$ ${totalValue.toFixed(2)}`;
+        } else {
+            alert('Erro ao carregar produtos do carrinho.');
         }
-        totalElement.textContent = `TOTAL: R$${totalValue.toFixed(2)}`;
-        
-        btnComprar.onclick = function(e) {
-            localStorage.removeItem('produtosCarrinho');
-        };
-    });
-
-const viewModal = () => {
-    const modal = document.querySelector('#finalizar');
-    const style = modal.style.display;
-
-    if (style === 'flex') {
-        modal.style.display = 'none';
-    } else {
-        modal.style.display = 'flex';
+    } catch (error) {
+        console.error('Erro ao carregar produtos do carrinho:', error);
     }
-}
 
-document.querySelector('#btnFinalizar').addEventListener('click', viewModal);
+    // Handle purchase finalization (emptying the cart)
+    const btnComprar = document.querySelector('#buyBtn');
+    if (btnComprar) {
+        btnComprar.addEventListener('click', async () => {
+            try {
+                // Finalize the purchase on the backend and clear the cart
+                const clearCartResponse = await fetch(`http://localhost:3013/carrinho/limpar/${usuarioID}`, {
+                    method: 'DELETE',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    }
+                });
 
-window.onclick = function(e) {
-    const modal = document.querySelector('#finalizar');
-    if (e.target === modal) {
-        viewModal();
+                const clearResult = await clearCartResponse.json();
+
+                if (clearResult.success) {
+                    alert('Compra finalizada com sucesso!');
+
+                    // Optionally clear localStorage if necessary
+                    localStorage.removeItem('produtosCarrinho');
+
+                    // Update the UI
+                    document.getElementById('lista-produtos-carrinho').innerHTML = '<p>Seu carrinho está vazio.</p>';
+                    document.getElementById('total').textContent = 'TOTAL: R$ 0.00';
+                    document.getElementById('lista-final').innerHTML = '';
+                    document.getElementById('aviso').style.display = 'flex';
+                    document.getElementById('btnFinalizar').style.display = 'none';
+                } else {
+                    alert('Erro ao finalizar a compra.');
+                }
+            } catch (error) {
+                console.error('Erro ao finalizar a compra:', error);
+            }
+        });
     }
-}
-
-document.querySelector('#closeModal').addEventListener('click', viewModal);
+});

@@ -1,69 +1,22 @@
 document.addEventListener('DOMContentLoaded', async () => {
-    // Retrieve the product ID from localStorage
     let produtoSelecionadoID = localStorage.getItem('produtoSelecionadoID');
+    let usuarioID = localStorage.getItem('usuarioID');
 
-    // If no product ID is found in localStorage, show an error
+    const addCartButton = document.getElementById('add-carrinho');
+    const addLikedButton = document.getElementById('add-curtidos');
+    const removeLikedButton = document.getElementById('remove-curtidos');
+    const editProductButton = document.getElementById('edit-btn');
+    const deleteProductButton = document.getElementById('btn-excluir');
+
+    // Fetch user information from localStorage
+    const dados = JSON.parse(localStorage.getItem('informacoes'));
+
     if (!produtoSelecionadoID) {
         alert('Erro: Nenhum produto selecionado.');
         return;
     }
 
-    // Get the "Add to Cart", "Edit", "Add to Liked", and "Delete" buttons
-    const addCartButton = document.getElementById('add-carrinho');
-    const editButton = document.getElementById('editar-btn');
-    const addLikedButton = document.getElementById('add-curtidos');
-    const excluirButton = document.getElementById('btn-excluir');
-
-    // Check if user is an admin (based on the user profile from localStorage)
-    const dados = JSON.parse(localStorage.getItem('informacoes'));
-    if (dados && dados.perfil === 'admin') {
-        // Hide "Add to Cart" button and show "Edit" and "Delete" buttons for admins
-        if (addCartButton) {
-            addCartButton.style.display = 'none';
-            addLikedButton.style.display = 'none'; // Hide Like button for admins as well
-        }
-        if (editButton) {
-            editButton.style.display = 'flex';
-            excluirButton.style.display = 'flex'; // Show the delete button for admins
-
-            excluirButton.addEventListener('click', async () => {
-                let confirmed = confirm('Você tem certeza que deseja excluir este produto?');
-                if (confirmed) {
-                    try {
-                        const deleteResponse = await fetch(`http://localhost:3013/produtos/excluir/${produtoSelecionadoID}`, {
-                            method: 'DELETE',
-                            headers: {
-                                'Content-Type': 'application/json'
-                            }
-                        });
-
-                        const deleteResult = await deleteResponse.json();
-
-                        if (deleteResult.success) {
-                            alert('Produto excluído com sucesso.');
-                            window.location.href = './catalogo.html'; // Redirect after deletion
-                        } else {
-                            alert('Erro ao excluir o produto.');
-                        }
-                    } catch (error) {
-                        console.error('Erro ao excluir o produto:', error);
-                    }
-                }
-            });
-        }
-    } else {
-        // For non-admins: Show "Add to Cart" and "Like" buttons and hide "Edit" and "Delete" buttons
-        if (addCartButton) {
-            addCartButton.style.display = 'flex';
-            addLikedButton.style.display = 'flex'; // Show Like button for non-admins
-        }
-        if (editButton) {
-            editButton.style.display = 'none';
-            excluirButton.style.display = 'none'; // Hide Delete button for non-admins
-        }
-    }
-
-    // Fetch the product details from the backend using the selected product ID
+    // Fetch product details and display them
     try {
         const response = await fetch(`http://localhost:3013/produtos/${produtoSelecionadoID}`, {
             method: "GET",
@@ -72,26 +25,185 @@ document.addEventListener('DOMContentLoaded', async () => {
             }
         });
 
-        if (!response.ok) {
-            throw new Error(`Erro ao obter detalhes do produto. Status: ${response.status}`);
-        }
-
-        const result = await response.json(); // Parse the response as JSON
+        const result = await response.json();
 
         if (result.success) {
             const product = result.data;
 
-            // Display product details on the page
+            // Set product details on the page
             document.getElementById('img-produto').src = `http://localhost:3013/uploads/${product.imagem}`;
             document.getElementById('nome-produto').textContent = product.nome;
             document.getElementById('valor-produto').textContent = `R$ ${parseFloat(product.preco).toFixed(2)}`;
             document.getElementById('descricao').textContent = product.descricao;
 
+            // Check if user is admin and display the correct buttons
+            if (dados && dados.perfil === 'admin') {
+                if (addCartButton) addCartButton.style.display = 'none';
+                if (addLikedButton) addLikedButton.style.display = 'none';
+                if (removeLikedButton) removeLikedButton.style.display = 'none';
+
+                if (editProductButton) editProductButton.style.display = 'flex';
+                if (deleteProductButton) deleteProductButton.style.display = 'flex';
+            } else {
+                // Regular user: Show add to cart and curtidos buttons
+                if (editProductButton) editProductButton.style.display = 'none';
+                if (deleteProductButton) deleteProductButton.style.display = 'none';
+            }
+
+            // Check if the product is already in curtidos (liked)
+            const curtidosResponse = await fetch(`http://localhost:3013/curtidos/${usuarioID}`, {
+                method: 'GET',
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            });
+
+            const curtidosResult = await curtidosResponse.json();
+
+            if (curtidosResult.success) {
+                const curtidos = curtidosResult.data;
+
+                // Check if the product is already in the user's curtidos list
+                const isCurtido = curtidos.some(curtido => curtido.idproduto === parseInt(produtoSelecionadoID));
+
+                // Toggle visibility of Add/Remove Curtidos buttons
+                if (dados && dados.perfil != 'admin') {
+                if (isCurtido) {
+                    if (addLikedButton) addLikedButton.style.display = 'none';
+                    if (removeLikedButton) removeLikedButton.style.display = 'flex';
+                } else {
+                    if (addLikedButton) addLikedButton.style.display = 'flex';
+                    if (removeLikedButton) removeLikedButton.style.display = 'none';
+                }
+            } else {
+                console.error('Erro ao carregar curtidos:', curtidosResult.message);
+            }
         } else {
-            alert('Erro ao obter detalhes do produto: ' + result.message);
+            console.error('Erro no backend:', result.message);
         }
     } catch (error) {
         console.error('Erro ao conectar com o servidor:', error);
-        alert(`Erro ao conectar com o servidor: ${error.message}`);
+    }
+    }
+    // Add product to cart
+    if (addCartButton) {
+        addCartButton.addEventListener('click', async () => {
+            try {
+                const response = await fetch(`http://localhost:3013/carrinho/adicionar`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        produto_id: produtoSelecionadoID,
+                        usuario_id: usuarioID,
+                        quantidade: 1 // Add default quantity as 1
+                    })
+                });
+
+                const result = await response.json();
+                if (response.ok && result.success) {
+                    alert('Produto adicionado ao carrinho com sucesso.');
+                    // Optionally, disable the add to cart button after adding to cart
+                    addCartButton.disabled = true;
+                } else {
+                    console.error('Erro ao adicionar ao carrinho:', result.message);
+                }
+            } catch (error) {
+                console.error('Erro ao adicionar ao carrinho:', error);
+            }
+        });
+    }
+
+    // Add product to curtidos
+    if (addLikedButton) {
+        addLikedButton.addEventListener('click', async () => {
+            try {
+                const response = await fetch(`http://localhost:3013/curtidos/adicionar`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        produto_id: produtoSelecionadoID,
+                        usuario_id: usuarioID
+                    })
+                });
+
+                const result = await response.json();
+                if (response.ok && result.success) {
+                    alert('Produto adicionado aos curtidos com sucesso.');
+                    addLikedButton.style.display = 'none';
+                    removeLikedButton.style.display = 'flex';
+                } else {
+                    console.error('Erro ao adicionar aos curtidos:', result.message);
+                }
+            } catch (error) {
+                console.error('Erro ao adicionar aos curtidos:', error);
+            }
+        });
+    }
+
+    // Remove product from curtidos
+    if (removeLikedButton) {
+        removeLikedButton.addEventListener('click', async () => {
+            try {
+                const response = await fetch(`http://localhost:3013/curtidos/remover`, {
+                    method: 'DELETE',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        produto_id: produtoSelecionadoID,
+                        usuario_id: usuarioID
+                    })
+                });
+
+                const result = await response.json();
+                if (response.ok && result.success) {
+                    alert('Produto removido dos curtidos com sucesso.');
+                    addLikedButton.style.display = 'flex';
+                    removeLikedButton.style.display = 'none';
+                } else {
+                    console.error('Erro ao remover dos curtidos:', result.message);
+                }
+            } catch (error) {
+                console.error('Erro ao remover dos curtidos:', error);
+            }
+        });
+    }
+
+    // Admin actions: delete product
+    if (deleteProductButton) {
+        deleteProductButton.addEventListener('click', async () => {
+            const confirmDelete = confirm('Tem certeza de que deseja deletar este produto?');
+            if (!confirmDelete) return;
+
+            try {
+                const response = await fetch(`http://localhost:3013/produtos/excluir/${produtoSelecionadoID}`, {
+                    method: 'DELETE',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    }
+                });
+
+                const result = await response.json();
+                if (response.ok && result.success) {
+                    alert('Produto deletado com sucesso.');
+                    window.location.href = './catalogo.html'; // Redirect to catalog after deletion
+                } else {
+                    console.error('Erro ao deletar produto:', result.message);
+                }
+            } catch (error) {
+                console.error('Erro ao deletar produto:', error);
+            }
+        });
+    }
+
+    // Admin actions: edit product
+    if (editProductButton) {
+        editProductButton.addEventListener('click', () => {
+            window.location.href = `./editarProduto.html?produto_id=${produtoSelecionadoID}`;
+        });
     }
 });

@@ -1,66 +1,66 @@
-document.addEventListener('DOMContentLoaded', () => {
-    // Get the element where liked products will be displayed
-    const listaCurtidos = document.getElementById('lista-produtos-curtidos');
-
-    // If the element doesn't exist, log an error and stop further execution
-    if (!listaCurtidos) {
-        console.error('Element #lista-produtos-curtidos not found in the DOM.');
+document.addEventListener('DOMContentLoaded', async () => {
+    const usuarioID = localStorage.getItem('usuarioID');
+    
+    if (!usuarioID) {
+        alert('Erro: Usuário não logado.');
         return;
     }
 
-    // Get liked products from localStorage
-    let produtosCurtidos = JSON.parse(localStorage.getItem('produtosCurtidos')) || [];
+    let listaProdutos = document.getElementById('lista-produtos-curtidos');
+    let aviso = document.querySelector('#aviso');
 
-    // If no products have been liked, show a message
-    if (produtosCurtidos.length === 0) {
-        const mensagemVazio = `
-            <div id="aviso" class="alerta">
-                <h1>Você ainda não curtiu nenhum produto!</h1>
-                <a href="./catalogo.html">Voltar para o Catálogo</a>
-            </div>
-        `;
-        listaCurtidos.innerHTML = mensagemVazio;
+    // Ensure the elements exist before trying to manipulate them
+    if (!listaProdutos || !aviso) {
+        console.error("Elementos necessários para exibir os curtidos não encontrados.");
         return;
     }
 
-    // Iterate through the liked products and display them in the DOM
-    produtosCurtidos.forEach(produto => {
-        let preco = parseFloat(produto.valor);
-
-        // Format price, fallback to 'N/A' if invalid
-        let precoFormatted = isNaN(preco) ? 'N/A' : `R$ ${preco.toFixed(2)}`;
-
-        // Create product card
-        let productCard = `
-            <div class="produtoCurtido" data-id="${produto.id}">
-                <img src="${produto.imagem}" alt="${produto.nome}" class="imgCurtido">
-                <div class="detalhesCurtido">
-                    <h3>${produto.nome}</h3>
-                    <p>${precoFormatted}</p>
-                    <p>${produto.descricao}</p>
-                    <button class="removerCurtido" data-id="${produto.id}">Remover</button>
-                </div>
-            </div>
-        `;
-
-        // Append the product card to the DOM
-        listaCurtidos.innerHTML += productCard;
-    });
-
-    // Add event listeners to remove liked products
-    const removerButtons = document.querySelectorAll('.removerCurtido');
-    removerButtons.forEach(button => {
-        button.addEventListener('click', (event) => {
-            let id = event.target.getAttribute('data-id');
-            
-            // Filter out the product with the clicked ID
-            produtosCurtidos = produtosCurtidos.filter(produto => produto.id !== id);
-
-            // Update localStorage with the new liked products array
-            localStorage.setItem('produtosCurtidos', JSON.stringify(produtosCurtidos));
-
-            // Reload the page to reflect the changes
-            window.location.reload();
+    try {
+        const response = await fetch(`http://localhost:3013/curtidos/${usuarioID}`, {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json'
+            }
         });
-    });
+
+        const result = await response.json();
+
+        if (result.success) {
+            const produtosCurtidos = result.data;
+
+            if (produtosCurtidos.length === 0) {
+                aviso.style.display = 'flex';
+            } else {
+                aviso.style.display = 'none';
+                produtosCurtidos.forEach(produto => {
+                    // Render each curtido product and add a click event to update produtoSelecionadoID
+                    listaProdutos.innerHTML += `
+                        <a href="./produto.html" class="produto-link" data-produto-id="${produto.idproduto}">
+                            <li>
+                                <div class="produto produtoCatalogo" id="${produto.idproduto}">
+                                    <img src="http://localhost:3013/uploads/${produto.imagem}" alt="" class="imgCatalogo">
+                                    <p>${produto.nome}</p>
+                                    <div class="precos">
+                                        <h3>R$ ${parseFloat(produto.preco).toFixed(2)}</h3>
+                                    </div>
+                                </div>
+                            </li>
+                        </a>`;
+                });
+
+                // Add event listener to update produtoSelecionadoID when a product is clicked
+                document.querySelectorAll('.produto-link').forEach(link => {
+                    link.addEventListener('click', (e) => {
+                        const produtoID = e.currentTarget.getAttribute('data-produto-id');
+                        // Set the produtoSelecionadoID in localStorage for the new product
+                        localStorage.setItem('produtoSelecionadoID', produtoID);
+                    });
+                });
+            }
+        } else {
+            alert('Erro ao carregar produtos curtidos.');
+        }
+    } catch (error) {
+        console.error('Erro ao carregar produtos do curtidos:', error);
+    }
 });

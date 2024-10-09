@@ -27,7 +27,10 @@ document.addEventListener('DOMContentLoaded', async () => {
 
             // Display the current product image
             const imagemAtual = document.getElementById('imagem-atual');
-            imagemAtual.src = `http://localhost:3013/uploads/${product.imagem}`;
+            if (product.imagem) {
+                imagemAtual.src = `http://localhost:3013/uploads/${product.imagem}`;
+                imagemAtual.style.display = 'block'; // Show image if available
+            }
         } else {
             alert('Erro ao carregar detalhes do produto: ' + result.message);
         }
@@ -38,37 +41,58 @@ document.addEventListener('DOMContentLoaded', async () => {
 
     // Handle form submission
     const form = document.getElementById('form-editar-produto');
-    form.addEventListener('submit', async (e) => {
-        e.preventDefault(); // Prevent default form submission
+    if (form) {
+        form.addEventListener('submit', async (e) => {
+            e.preventDefault(); // Prevent default form submission
 
-        const formData = new FormData(form);
-        formData.append('id', produtoSelecionadoID); // Include product ID
+            const formData = new FormData();
 
-        // Check if an image file was uploaded
-        const imageInput = document.getElementById('imagemProduto');
-        if (!imageInput.files.length) {
-            // No new image uploaded, append the current image path
-            const currentImage = document.getElementById('imagem-atual').src.split('/').pop();
-            formData.append('imagem', currentImage); // Send current image to the backend
-        }
-
-        try {
-            // Send the form data to the backend for update
-            const updateResponse = await fetch(`http://localhost:3013/produtos/editar`, {
-                method: 'POST',
-                body: formData // Send form data, including file upload
-            });
-
-            const updateResult = await updateResponse.json();
-
-            if (updateResult.success) {
-                alert('Produto atualizado com sucesso.');
-                window.location.href = './produto.html'; // Redirect after successful update
-            } else {
-                alert('Erro ao atualizar o produto: ' + updateResult.message);
+            // Only include fields that have values
+            const nomeProduto = document.getElementById('nomeProduto').value.trim();
+            if (nomeProduto) {
+                formData.append('nome', nomeProduto);
             }
-        } catch (error) {
-            console.error('Erro ao conectar com o servidor:', error);
-        }
-    });
+
+            const precoProduto = document.getElementById('precoProduto').value.trim();
+            if (precoProduto) {
+                formData.append('preco', precoProduto);
+            }
+
+            const descricaoProduto = document.getElementById('descricaoProduto').value.trim();
+            if (descricaoProduto) {
+                formData.append('descricao', descricaoProduto);
+            }
+
+            // Check if an image file was uploaded
+            const imageInput = document.getElementById('imagemProduto');
+            if (imageInput.files.length > 0) {
+                formData.append('imagem', imageInput.files[0]); // New image
+            } else {
+                // No new image uploaded, append the current image path
+                const currentImage = document.getElementById('imagem-atual').src.split('/').pop();
+                formData.append('imagem', currentImage); // Send current image to the backend
+            }
+
+            try {
+                // Send the form data to the backend for update
+                const updateResponse = await fetch(`http://localhost:3013/produtos/editar/${produtoSelecionadoID}`, {
+                    method: 'PUT',
+                    body: formData // Send form data, including file upload
+                });
+
+                const updateResult = await updateResponse.json();
+
+                if (updateResult.success) {
+                    alert('Produto atualizado com sucesso.');
+                    window.location.href = './produto.html'; // Redirect after successful update
+                } else {
+                    alert('Erro ao atualizar o produto: ' + updateResult.message);
+                }
+            } catch (error) {
+                console.error('Erro ao conectar com o servidor:', error);
+            }
+        });
+    } else {
+        console.error('Form not found on the page.');
+    }
 });
