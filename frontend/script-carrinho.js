@@ -37,7 +37,7 @@ document.addEventListener('DOMContentLoaded', async () => {
                         })
                 produtosCarrinho.forEach(produto => {
                     listaProdutos.innerHTML += `
-                        <a href="./produto.html">
+                        <a href="javascript:void(0);" class="produto-link">
                             <li>
                                 <div class="produto produtoCatalogo" id="${produto.idproduto}">
                                     <img src="http://localhost:3013/uploads/${produto.imagem}" alt="" class="imgCatalogo">
@@ -50,7 +50,7 @@ document.addEventListener('DOMContentLoaded', async () => {
                         </a>`;
 
                     listaFinal.innerHTML += `
-                        <a href="./produto.html">
+                        <a href="javascript:void(0);" class="produto-link">
                             <li>
                                 <div class="produtoFinal" id="${produto.idproduto}">
                                     <img src="http://localhost:3013/uploads/${produto.imagem}" alt="" id="imgFinal">
@@ -61,6 +61,16 @@ document.addEventListener('DOMContentLoaded', async () => {
                         </a>`;
 
                     totalValue += parseFloat(produto.preco);
+
+                    // Adiciona evento de clique para redirecionar para a página do produto
+                    const produtoLinks = document.querySelectorAll('.produto-link');
+                    produtoLinks.forEach((link, index) => {
+                        link.addEventListener('click', () => {
+                            const produtoSelecionadoID = produtosCarrinho[index].idproduto;
+                            localStorage.setItem('produtoSelecionadoID', produtoSelecionadoID);
+                            window.location.href = './produto.html';  // Redireciona para a página do produto
+                        });
+                    });
                 });
             }
 

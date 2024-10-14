@@ -87,17 +87,6 @@ app.put("/usuario/editar/:id", (req, res) => {
 
 // ROTAS PARA PRODUTOS
 
-app.get('/curtidos/:usuarioID', (req, res) => {
-  const usuarioID = req.params.usuarioID;
-
-  if (!usuarioID) {
-      return res.status(400).json({ success: false, message: 'Usuário não encontrado.' });
-  }
-
-  // Sua lógica de buscar produtos curtidos para o usuário
-});
-
-
 // Cadastro de produtos
 app.post("/produtos/cadastrar", upload.single("imagem"), (req, res) => {
     const { nome, preco, descricao } = req.body;
@@ -311,16 +300,21 @@ app.post("/curtidos/adicionar", (req, res) => {
 });
 
 // Fetch liked products (curtidos) for the logged-in user
-app.get("/curtidos/:usuario_id", (req, res) => {
+app.get('/curtidos/:usuario_id', (req, res) => {
   const { usuario_id } = req.params;
-  const sql = `SELECT p.* FROM curtidas c JOIN produto p ON c.produto_id = p.idproduto WHERE c.usuario_id = ?`;
+
+  const sql = `
+    SELECT p.idproduto, p.nome, p.preco, p.descricao, p.imagem 
+    FROM curtidas c 
+    JOIN produto p ON c.produto_id = p.idproduto 
+    WHERE c.usuario_id = ?`;
 
   db.query(sql, [usuario_id], (err, result) => {
-      if (err) {
-          res.status(500).json({ success: false, message: 'Erro ao carregar produtos curtidos.' });
-      } else {
-          res.status(200).json({ success: true, data: result });
-      }
+    if (err) {
+      console.error('Erro ao buscar os produtos curtidos:', err);
+      return res.status(500).json({ success: false, message: 'Erro ao buscar os produtos curtidos.' });
+    }
+    res.json({ success: true, data: result });
   });
 });
 

@@ -17,7 +17,7 @@ document.addEventListener('DOMContentLoaded', async () => {
           produtosDesconto.forEach(produto => {
               listaProdutosDesconto.innerHTML += `
               <li>
-                  <div class="produto produtoCatalogo" data-id="${produto.id}" data-nome="${produto.nome}" data-imagem="./assets/produtos/${produto.imagem.replace(/\s/g, '%20')}" data-valor="R$${produto.preco}" data-descricao="${produto.descricao}">
+                  <div class="produto produtoCatalogo" data-id="${produto.idproduto}" data-nome="${produto.nome}" data-imagem="./assets/produtos/${produto.imagem.replace(/\s/g, '%20')}" data-valor="R$${produto.preco}" data-descricao="${produto.descricao}">
                       <img src="http://localhost:3013/uploads/${produto.imagem.replace(/\s/g, '%20')}" class="imgCatalogo">
                       <h1>${produto.nome}</h1>
                       <div class="precos">
@@ -64,7 +64,7 @@ document.addEventListener('DOMContentLoaded', async () => {
           produtosRegulares.forEach(produto => {
               listaProdutos.innerHTML += `
               <li>
-                  <div class="produto produtoDestaque" data-id="${produto.id}" data-nome="${produto.nome}" data-imagem="../backend/src/produtos/${produto.imagem.replace(/\s/g, '%20')}" data-valor="${produto.preco}" data-descricao="${produto.descricao}">
+                  <div class="produto produtoDestaque" data-id="${produto.idproduto}" data-nome="${produto.nome}" data-imagem="../backend/src/produtos/${produto.imagem.replace(/\s/g, '%20')}" data-valor="${produto.preco}" data-descricao="${produto.descricao}">
                       <img src="http://localhost:3013/uploads/${produto.imagem.replace(/\s/g, '%20')}" class="produtoImg">
                       <p>${produto.nome}</p>
                       <p><b>R$${parseFloat(produto.preco).toFixed(2)}</b></p>

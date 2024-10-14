@@ -684,6 +684,10 @@ textarea {
     margin-left: 30px;
 }
 
+#remove-curtidos{
+    display: none;
+}
+
 #btn-excluir {
     background-color: red;
     color: white;
