@@ -18,7 +18,9 @@ CREATE TABLE produto (
     preco DECIMAL(10, 2) NOT NULL,
     descricao TEXT,
     imagem VARCHAR(255), 
-    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    categoria VARCHAR(255),
+    desconto DECIMAL(10, 2)
 );
 
 CREATE TABLE carrinho (
@@ -59,4 +61,4 @@ CREATE TABLE itens_compra (
     FOREIGN KEY (produto_id) REFERENCES produto(idproduto) ON DELETE CASCADE
 );
 
-select * from usuario
+UPDATE usuario SET perfil = 'admin' WHERE idusuario = 1;
