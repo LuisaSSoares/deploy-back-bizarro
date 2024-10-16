@@ -9,14 +9,14 @@ app.use(express.json());
 app.use(cors());
 app.use("/uploads", express.static("src/produtos"));
 
-// Middleware function to validate if the user is an admin
+// função Middleware para validar se o usuário é um admin
 function checkAdmin(req, res, next) {
   if (req.session.user && req.session.user.perfil === 'admin') {
-      return next(); // If the user is an admin, proceed to the next middleware or route handler
+      return next(); // Se o usuário é um admin, prossegue para o próximo middleware ou rota
   } else {
       return res.status(403).json({
           success: false,
-          message: 'Acesso negado. Apenas administradores podem realizar essa ação.' // Access denied message
+          message: 'Acesso negado. Apenas administradores podem realizar essa ação.' // Apresenta mensagem de acesso negado
       });
   }
 }
@@ -144,7 +144,7 @@ app.put('/produtos/editar/:id', upload.single('imagem'), (req, res) => {
   const { id } = req.params;
   const imagem = req.file ? req.file.filename : null;
 
-  // First, fetch the existing product details
+  // Primeiro, apresenta os detalhes já existentes do produto 
   const fetchSql = 'SELECT * FROM produto WHERE idproduto = ?';
   db.query(fetchSql, [id], (err, result) => {
       if (err) {
@@ -154,13 +154,13 @@ app.put('/produtos/editar/:id', upload.single('imagem'), (req, res) => {
 
       const existingProduct = result[0];
 
-      // Use the existing values if no new values are provided
+      // Insere os valores esistentes se nenhum novo valor for inserido 
       const updatedNome = nome || existingProduct.nome;
       const updatedPreco = preco || existingProduct.preco;
       const updatedDescricao = descricao || existingProduct.descricao;
       const updatedImagem = imagem || existingProduct.imagem;
 
-      // Now, update the product with the new or existing values
+      // Agora, atualiza o produto com os valores novos ou já existentes
       const updateSql = 'UPDATE produto SET nome = ?, preco = ?, descricao = ?, imagem = ? WHERE idproduto = ?';
       db.query(updateSql, [updatedNome, updatedPreco, updatedDescricao, updatedImagem, id], (err, result) => {
           if (err) {
@@ -207,7 +207,7 @@ app.delete('/produtos/excluir/:id', checkAdmin, (request, response) => {
   });
 });
 
-// Route to fetch products categorized as 'desconto'
+// Rota para listar produtos com a categoria de 'desconto'
 app.get('/produtos/categoria/desconto', (req, res) => {
   const sql = 'SELECT * FROM produto WHERE categoria = "desconto"';
 
@@ -220,7 +220,7 @@ app.get('/produtos/categoria/desconto', (req, res) => {
   });
 });
 
-// Route to fetch products categorized as 'regular'
+// Rota para listar produtos com a categoria de 'regular'
 app.get('/produtos/categoria/regular', (req, res) => {
   const sql = 'SELECT * FROM produto WHERE categoria = "regular"';
 
@@ -251,7 +251,7 @@ app.post('/carrinho/adicionar', (req, res) => {
   });
 });
 
-// Fetch products in the cart for the logged-in user
+// Lista os produtos no carrinho para o usuário logado
 app.get('/carrinho/:usuario_id', (req, res) => {
   const { usuario_id } = req.params;
 
@@ -285,7 +285,7 @@ app.delete('/carrinho/limpar/:usuarioID', (req, res) => {
 
 //ROTAS PARA CURTIDOS
 
-// Adding product to liked products (curtidos)
+// Adicionar produto aos curtidos
 app.post("/curtidos/adicionar", (req, res) => {
   const { usuario_id, produto_id } = req.body;
   const sql = `INSERT INTO curtidas (usuario_id, produto_id) VALUES (?, ?)`;
@@ -299,7 +299,7 @@ app.post("/curtidos/adicionar", (req, res) => {
   });
 });
 
-// Fetch liked products (curtidos) for the logged-in user
+// Lista os produtos curtidos para o usuário logado
 app.get('/curtidos/:usuario_id', (req, res) => {
   const { usuario_id } = req.params;
 
@@ -318,7 +318,7 @@ app.get('/curtidos/:usuario_id', (req, res) => {
   });
 });
 
-// Route to remove a product from curtidos (liked products)
+// Rota para remover um produto dos curtidos
 app.delete('/curtidos/remover', (req, res) => {
   const { usuario_id, produto_id } = req.body;
 
