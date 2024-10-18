@@ -9,7 +9,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     let listaProdutos = document.getElementById('lista-produtos-curtidos');
     let aviso = document.querySelector('#aviso');
 
-    // Ensure the elements exist before trying to manipulate them
+    // Garante que os elementos existem antes de tantae manipular eles
     if (!listaProdutos || !aviso) {
         console.error("Elementos necessários para exibir os curtidos não encontrados.");
         return;
@@ -33,7 +33,7 @@ document.addEventListener('DOMContentLoaded', async () => {
             } else {
                 aviso.style.display = 'none';
                 produtosCurtidos.forEach(produto => {
-                    // Render each curtido product and add a click event to update produtoSelecionadoID
+                    // Apresenta o produto curtido
                     listaProdutos.innerHTML += `
                         <a href="./produto.html" class="produto-link" data-produto-id="${produto.idproduto}">
                             <li>
@@ -48,7 +48,7 @@ document.addEventListener('DOMContentLoaded', async () => {
                         </a>`;
                 });
 
-                // Add event listener to update produtoSelecionadoID when a product is clicked
+                // Adiciona o evento de click para cada produto para salvar o seu repectivo ID como produtoSelecionadoID e redireciona à pagina produto.html
                 document.querySelectorAll('.produto-link').forEach(link => {
                     link.addEventListener('click', (e) => {
                         const produtoID = e.currentTarget.getAttribute('data-produto-id');
