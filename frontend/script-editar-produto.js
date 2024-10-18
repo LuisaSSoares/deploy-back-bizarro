@@ -7,7 +7,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     }
 
     try {
-        // Fetch product details from the backend
+        // Apresenta os detalhes do produto através do backend
         const response = await fetch(`http://localhost:3013/produtos/${produtoSelecionadoID}`, {
             method: 'GET',
             headers: {
@@ -20,16 +20,16 @@ document.addEventListener('DOMContentLoaded', async () => {
         if (result.success) {
             const product = result.data;
 
-            // Pre-fill form fields with product details
+            // Preenche os campos do formulário com os detalhes do produto
             document.getElementById('nomeProduto').value = product.nome;
             document.getElementById('precoProduto').value = parseFloat(product.preco).toFixed(2);
             document.getElementById('descricaoProduto').value = product.descricao;
 
-            // Display the current product image
+            // Apresenta a a imagem atual do produto product
             const imagemAtual = document.getElementById('imagem-atual');
             if (product.imagem) {
                 imagemAtual.src = `http://localhost:3013/uploads/${product.imagem}`;
-                imagemAtual.style.display = 'block'; // Show image if available
+                imagemAtual.style.display = 'block'; 
             }
         } else {
             alert('Erro ao carregar detalhes do produto: ' + result.message);
@@ -39,15 +39,15 @@ document.addEventListener('DOMContentLoaded', async () => {
         alert('Erro ao conectar com o servidor.');
     }
 
-    // Handle form submission
+    // Envio das alterações do formulário
     const form = document.getElementById('form-editar-produto');
     if (form) {
         form.addEventListener('submit', async (e) => {
-            e.preventDefault(); // Prevent default form submission
+            e.preventDefault(); 
 
             const formData = new FormData();
 
-            // Only include fields that have values
+            // Inclui apenas campos que possuem valor
             const nomeProduto = document.getElementById('nomeProduto').value.trim();
             if (nomeProduto) {
                 formData.append('nome', nomeProduto);
@@ -63,28 +63,28 @@ document.addEventListener('DOMContentLoaded', async () => {
                 formData.append('descricao', descricaoProduto);
             }
 
-            // Check if an image file was uploaded
+            // Verifica se o arquivo de uma imagem foi inserido
             const imageInput = document.getElementById('imagemProduto');
             if (imageInput.files.length > 0) {
-                formData.append('imagem', imageInput.files[0]); // New image
+                formData.append('imagem', imageInput.files[0]);
             } else {
-                // No new image uploaded, append the current image path
+                // Se nenhuma imagem for inserida, apresenta a imagem atual
                 const currentImage = document.getElementById('imagem-atual').src.split('/').pop();
-                formData.append('imagem', currentImage); // Send current image to the backend
+                formData.append('imagem', currentImage);
             }
 
             try {
-                // Send the form data to the backend for update
+                // Envia os dados do formulário para o backend par ser atualizado
                 const updateResponse = await fetch(`http://localhost:3013/produtos/editar/${produtoSelecionadoID}`, {
                     method: 'PUT',
-                    body: formData // Send form data, including file upload
+                    body: formData 
                 });
 
                 const updateResult = await updateResponse.json();
 
                 if (updateResult.success) {
                     alert('Produto atualizado com sucesso.');
-                    window.location.href = './produto.html'; // Redirect after successful update
+                    window.location.href = './produto.html';
                 } else {
                     alert('Erro ao atualizar o produto: ' + updateResult.message);
                 }
