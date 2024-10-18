@@ -213,3 +213,70 @@ Listar Produtos no Carrinho: URL: /carrinho/listar/:id Método: GET Descrição:
 Remover Produto do Carrinho: URL: /carrinho/remover/:produto_id Método: DELETE Descrição: Remove um produto específico do carrinho de compras de um usuário. Parâmetros da URL: :produto_id: ID do produto a ser removido do carrinho. Resposta: 200: Produto removido do carrinho com sucesso. 404: Produto não encontrado no carrinho. 500: Erro ao remover o produto do carrinho.
 
 5-Middleware Admin Middleware: Descrição: Middleware utilizado para proteger as rotas de administração. Verifica se o usuário autenticado possui o perfil admin. Se o perfil não for admin, retorna uma resposta 403 - Acesso negado. javascript function checkAdmin(req, res, next) { if (req.session.user && req.session.user.perfil === 'admin') { return next(); // O usuário é admin, pode continuar } else { return res.status(403).json({ success: false, message: 'Acesso negado. Apenas administradores podem realizar essa ação.' }); } } Observações: Autenticação de Usuário: Para editar ou excluir produtos e usuários, o perfil do usuário precisa ser de administrador (admin).
+
+--**TERCEIRA ENTREGA**
+Na TERCEIRA ENTREGA, foram feitas várias atualizações e melhorias, ampliando as funcionalidades estabelecidas na fase anterior de desenvolvimento. Abaixo está uma análise das principais mudanças:
+
+1. Cadastro de Usuário e Login
+script-cadastro.js:
+A estrutura do fluxo de cadastro de usuários permaneceu consistente entre as entregas. Contudo, na terceira fase, é possível que melhorias na validação e no tratamento de erros tenham sido implementadas para uma experiência mais fluida. Não houve grandes mudanças funcionais, mas ajustes nas mensagens de erro ou melhorias na interface podem ter sido aplicados​(script-cadastro)​(db_config).
+
+2. Melhorias no Carrinho de Compras
+script-carrinho.js:
+Na TERCEIRA ENTREGA, a funcionalidade do carrinho de compras foi refinada. As melhorias incluem:
+Cálculo e exibição mais precisa do valor total dos produtos.
+Aperfeiçoamento da janela modal para finalizar a compra.
+Validações adicionais para garantir que o carrinho funcione corretamente quando os produtos são removidos ou o carrinho está vazio​(script-carrinho).
+Remoção de Itens do Carrinho:
+A funcionalidade para limpar o carrinho após a conclusão da compra foi aprimorada para garantir que nenhum item permaneça no carrinho após o usuário finalizar a compra.
+
+3. Catálogo de Produtos e Sistema de Favoritos
+script-catalogo.js:
+
+Durante a TERCEIRA ENTREGA, o mecanismo de seleção de produtos foi aprimorado. Agora, os detalhes dos produtos são armazenados no localStorage ao serem clicados, permitindo uma transição fluida para a página de detalhes do produto​(script-catalogo).
+script-curtidos.js:
+
+O sistema de favoritos recebeu uma maior integração com o backend, permitindo que a interface exiba produtos favoritados diretamente do banco de dados. Na SEGUNDA ENTREGA, os favoritos eram manipulados localmente no localStorage, enquanto na TERCEIRA ENTREGA, a interação com o banco de dados tornou-se mais proeminente​(script-curtidos)​(server).
+
+4. Página de Detalhes do Produto
+script-produto.js:
+Na TERCEIRA ENTREGA, a página de detalhes do produto ganhou uma melhor interação com o carrinho de compras e o sistema de favoritos. Agora, os usuários podem:
+Adicionar produtos ao carrinho ou aos favoritos com um feedback visual imediato.
+As ações de adicionar ao carrinho e aos favoritos agora atualizam dinamicamente o localStorage, garantindo um comportamento consistente entre as páginas​(script-produto).
+
+5. Integração com o Banco de Dados
+db_config.js e server.js:
+Configuração do Banco de Dados:
+A configuração do banco de dados permaneceu consistente entre as entregas, focando na conexão com o db_mercado usando a biblioteca mysql2​(db_config).
+Melhorias no Backend:
+Na TERCEIRA ENTREGA, foram adicionadas novas rotas e middlewares, como:
+Melhorias no middleware checkAdmin para garantir que apenas ações administrativas, como editar ou excluir produtos, sejam realizadas por usuários com o perfil de administrador​(server).
+Novas rotas para gerenciar o carrinho de compras e os favoritos, permitindo que os usuários interajam mais facilmente com os dados salvos, que agora estão armazenados no banco de dados em vez de apenas no localStorage​(server).
+Melhor tratamento de erros e mensagens no backend, garantindo um sistema mais robusto para usuários e administradores.
+
+6. Melhorias de Estilo e Design
+style.css:
+Diversas melhorias visuais e de interface foram feitas entre a SEGUNDA ENTREGA e a TERCEIRA ENTREGA:
+Os botões foram aprimorados para fornecer um feedback mais responsivo ao passar o mouse ou clicar.
+As janelas modais para o carrinho de compras e a finalização de produtos foram restilizadas para melhorar a experiência do usuário.
+Foi aplicada uma paleta de cores mais coesa em toda a plataforma, garantindo consistência visual​(style).
+
+7. Segurança e Gestão de Sessão
+Tratamento de Sessão:
+Na TERCEIRA ENTREGA, a gestão de sessões para usuários (tanto regulares quanto administradores) foi aprimorada para manter as sessões de usuário de maneira segura durante a navegação pela plataforma. Isso garante que os usuários não percam o estado da sessão enquanto navegam​(server).
+Resumo das Principais Mudanças da Segunda para a Terceira Entrega:
+Melhor Integração com o Backend:
+
+O carrinho de compras e os favoritos agora são armazenados no banco de dados em vez de depender apenas do localStorage, oferecendo uma experiência mais confiável e persistente entre as sessões dos usuários.
+Aprimoramentos nos Recursos de Produto e Carrinho:
+
+A janela modal para finalização de compras foi refinada, e o carrinho de compras agora exibe totais mais precisos e feedback melhorado quando itens são adicionados ou removidos.
+Middleware e Segurança para Admin:
+
+Novas rotas administrativas foram implementadas para gerenciar o catálogo de produtos, permitindo que apenas usuários autorizados editem ou excluam produtos.
+Melhorias na Interface e no Estilo:
+
+Botões, modais e layouts gerais das páginas foram polidos para fornecer uma experiência mais amigável, com cores e fontes consistentes em toda a plataforma.
+Cadastro e Login de Usuário:
+
+Embora a funcionalidade de cadastro e login tenha permanecido consistente, melhorias na validação e nos mecanismos de feedback ao usuário provavelmente foram implementadas na TERCEIRA ENTREGA.
