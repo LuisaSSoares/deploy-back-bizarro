@@ -14,7 +14,7 @@ document.addEventListener('DOMContentLoaded', async () => {
         return;
     }
 
-    // Utility function for making API requests
+    // Função utilizada para as requests da API 
     async function fetchData(url, options = {}) {
         try {
             const response = await fetch(url, options);
@@ -29,7 +29,7 @@ document.addEventListener('DOMContentLoaded', async () => {
         }
     }
 
-    // Load product details
+    // Carrega os detalhes dos produtos 
     async function loadProductDetails() {
         try {
             const result = await fetchData(`http://localhost:3013/produtos/${produtoSelecionadoID}`);
@@ -44,7 +44,7 @@ document.addEventListener('DOMContentLoaded', async () => {
         }
     }
 
-    // Display product details in the DOM
+    // Apresenta os detalhes do produto no DOM
     function displayProductDetails(product) {
         document.getElementById('img-produto').src = `http://localhost:3013/uploads/${product.imagem.replace(/\s/g, '%20')}`;
         document.getElementById('nome-produto').textContent = product.nome;
@@ -52,7 +52,7 @@ document.addEventListener('DOMContentLoaded', async () => {
         document.getElementById('descricao').textContent = product.descricao;
     }
 
-    // Check user permissions and adjust buttons accordingly
+    // Verifica as permissões do usuário e ajusta os botões de acordo
     function handleUserPermissions() {
         if (dados && dados.perfil === 'admin') {
             toggleButtonVisibility(addCartButton, false);
@@ -66,14 +66,14 @@ document.addEventListener('DOMContentLoaded', async () => {
         }
     }
 
-    // Toggle the visibility of buttons
+    // Altera a visibilidade dos botões
     function toggleButtonVisibility(button, show, displayType = 'block') {
         if (button) {
             button.style.display = show ? displayType : 'none';
         }
     }
 
-    // Check if the product is already liked by the user
+    // Verifica se o produto já foi curtido pelo usuário
     async function checkCurtidosStatus() {
         try {
             const curtidosResult = await fetchData(`http://localhost:3013/curtidos/${usuarioID}`);
@@ -87,7 +87,7 @@ document.addEventListener('DOMContentLoaded', async () => {
         }
     }
 
-    // Update Curtidos (like) buttons based on product's status
+    // Atualiza os bot~es de curtida de acordo com o status do produto
     function updateCurtidosButtons(isCurtido) {
         if (dados && dados.perfil != 'admin') {
             toggleButtonVisibility(addLikedButton, !isCurtido, 'flex');
@@ -95,7 +95,7 @@ document.addEventListener('DOMContentLoaded', async () => {
         }
     }
 
-    // Add event listeners
+    // Adiciona os event listeners
     function addEventListeners() {
         addCartButton?.addEventListener('click', addToCart);
         addLikedButton?.addEventListener('click', addToCurtidos);
@@ -104,7 +104,7 @@ document.addEventListener('DOMContentLoaded', async () => {
         deleteProductButton?.addEventListener('click', deleteProduct);
     }
 
-    // Add product to cart
+    // Adiciona o produto ao carrinho
     async function addToCart() {
         try {
             const result = await fetchData('http://localhost:3013/carrinho/adicionar', {
@@ -119,7 +119,7 @@ document.addEventListener('DOMContentLoaded', async () => {
         }
     }
 
-    // Add product to curtidos (liked)
+    // Adiciona o produto aos curtidos
     async function addToCurtidos() {
         try {
             const result = await fetchData('http://localhost:3013/curtidos/adicionar', {
@@ -134,7 +134,7 @@ document.addEventListener('DOMContentLoaded', async () => {
         }
     }
 
-    // Remove product from curtidos
+    // Remove o produto dos curtidos
     async function removeFromCurtidos() {
         try {
             const result = await fetchData('http://localhost:3013/curtidos/remover', {
@@ -149,7 +149,7 @@ document.addEventListener('DOMContentLoaded', async () => {
         }
     }
 
-    // Delete product (admin only)
+    // Deleta o produto (apenas admin)
     async function deleteProduct() {
         const confirmDelete = confirm('Tem certeza de que deseja deletar este produto?');
         if (!confirmDelete) return;
@@ -166,12 +166,12 @@ document.addEventListener('DOMContentLoaded', async () => {
         }
     }
 
-    // Edit product (admin only)
+    // Edita o produto (apenas admin)
     function editProduct() {
         window.location.href = `./editarProduto.html?produto_id=${produtoSelecionadoID}`;
     }
 
-    // Initialize the page
+    // Inicializa a página
     async function initialize() {
         await loadProductDetails();
         addEventListeners();
