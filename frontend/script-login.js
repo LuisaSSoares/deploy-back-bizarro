@@ -25,11 +25,11 @@ async function login(event) {
     if (results.success) {
         let userData = results.data;
 
-        // Store the entire user information and specifically the user ID in localStorage
+        // Armazena a informação completa do usuário e especificamente seu ID no localStorage
         localStorage.setItem('informacoes', JSON.stringify(userData));
-        localStorage.setItem('usuarioID', userData.idusuario); // Assuming 'idusuario' is the correct field for user ID
+        localStorage.setItem('usuarioID', userData.idusuario); 
 
-        window.location.href = './index.html'; // Redireciona para a página inicial ou qualquer outra página desejada
+        window.location.href = './index.html'; // Redireciona para a página inicial
     } else {
         mensagem.textContent = 'Email ou senha incorretos.';
         mensagem.style.display = 'block';
