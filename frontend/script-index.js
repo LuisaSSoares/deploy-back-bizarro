@@ -1,6 +1,6 @@
 document.addEventListener('DOMContentLoaded', async () => {
   try {
-      // Fetch products categorized as 'desconto'
+      // Apresenta os produtos com a categoria 'desconto'
       const responseDesconto = await fetch('http://localhost:3013/produtos/categoria/desconto', {
           method: 'GET',
           headers: {
@@ -32,14 +32,14 @@ document.addEventListener('DOMContentLoaded', async () => {
               </li>`;
           });
 
-          // Add click event listeners to each product to store the product ID and redirect to produto.html
+          // Adiciona o evento de click para cada produto para salvar o seu repectivo ID como produtoSelecionadoID e redireciona à pagina produto.html
           let produtos = document.querySelectorAll('.produto');
           produtos.forEach(produto => {
               produto.addEventListener('click', () => {
-                  let id = produto.getAttribute('data-id'); // Capture product ID
-                  console.log('Product ID:', id); // Debug: Check the correct ID is captured
-                  localStorage.setItem('produtoSelecionadoID', id); // Store product ID in localStorage
-                  window.location.href = './produto.html'; // Redirect to the product details page
+                  let id = produto.getAttribute('data-id'); 
+                  console.log('Product ID:', id); 
+                  localStorage.setItem('produtoSelecionadoID', id);
+                  window.location.href = './produto.html'; 
               });
           });
 
@@ -47,7 +47,7 @@ document.addEventListener('DOMContentLoaded', async () => {
           alert('Nenhum produto com desconto encontrado.');
       }
 
-      // Fetch products categorized as 'regular'
+      // Apresenta os produtos com a categoria 'regular'
       const responseRegular = await fetch('http://localhost:3013/produtos/categoria/regular', {
           method: 'GET',
           headers: {
@@ -76,14 +76,14 @@ document.addEventListener('DOMContentLoaded', async () => {
               </li>`;
           });
 
-          // Add click event listeners to each product to store the product ID and redirect to produto.html
+          // Adiciona o evento de click para cada produto para salvar o seu repectivo ID como produtoSelecionadoID e redireciona à pagina produto.html
           let produtos = document.querySelectorAll('.produto');
           produtos.forEach(produto => {
               produto.addEventListener('click', () => {
-                  let id = produto.getAttribute('data-id'); // Capture product ID
-                  console.log('Product ID:', id); // Debug: Check the correct ID is captured
-                  localStorage.setItem('produtoSelecionadoID', id); // Store product ID in localStorage
-                  window.location.href = './produto.html'; // Redirect to the product details page
+                  let id = produto.getAttribute('data-id');
+                  console.log('Product ID:', id);
+                  localStorage.setItem('produtoSelecionadoID', id); 
+                  window.location.href = './produto.html';
               });
           });
 
