@@ -82,12 +82,12 @@ document.addEventListener('DOMContentLoaded', async () => {
         console.error('Erro ao carregar produtos do carrinho:', error);
     }
 
-    // Handle purchase finalization (emptying the cart)
+    // Realiza a finalização da compra (esvaziando o carrinho)
     const btnComprar = document.querySelector('#buyBtn');
     if (btnComprar) {
         btnComprar.addEventListener('click', async () => {
             try {
-                // Finalize the purchase on the backend and clear the cart
+                // Finaliza a compra no backend e limpa o carrinho
                 const clearCartResponse = await fetch(`http://localhost:3013/carrinho/limpar/${usuarioID}`, {
                     method: 'DELETE',
                     headers: {
@@ -100,10 +100,7 @@ document.addEventListener('DOMContentLoaded', async () => {
                 if (clearResult.success) {
                     alert('Compra finalizada com sucesso!');
 
-                    // Optionally clear localStorage if necessary
-                    localStorage.removeItem('produtosCarrinho');
-
-                    // Update the UI
+                    // Atualiza a interface
                     document.getElementById('lista-produtos-carrinho').innerHTML = '<p>Seu carrinho está vazio.</p>';
                     document.getElementById('total').textContent = 'TOTAL: R$ 0.00';
                     document.getElementById('lista-final').innerHTML = '';
