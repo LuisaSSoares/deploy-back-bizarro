@@ -6,6 +6,10 @@
   "scripts": {
     "start": "nodemon ./backend/src/server.js"
   },
+  {
+  "engines": {
+    "node": "14.x" // ou a versão específica que você está usando
+  }, 
   "keywords": [],
   "author": "",
   "license": "ISC",
