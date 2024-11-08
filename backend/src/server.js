@@ -1,6 +1,6 @@
 const express = require("express");
 const app = express();
-const port = 3013;
+const port = 8080;
 const multer = require("multer");
 const db = require("./db_config");
 const cors = require("cors");
