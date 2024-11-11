@@ -280,3 +280,48 @@ Botões, modais e layouts gerais das páginas foram polidos para fornecer uma ex
 Cadastro e Login de Usuário:
 
 Embora a funcionalidade de cadastro e login tenha permanecido consistente, melhorias na validação e nos mecanismos de feedback ao usuário provavelmente foram implementadas na TERCEIRA ENTREGA.
+
+**PROCESSO DE DEPLOY**
+A aplicação do mercado Bizarro passou pelo processo de deploy do front-end, back-end e do banco de dados, visando otimizar a experiência dos usuários e garantir maior estabilidade ao sistema. Para isso, utilizamos a plataforma de hospedagem Vercel para carregar a interface do usuário, seguido do Clever Cloud para subir o banco de dados e o servidor à nuvem. 
+
+**BANCO DE DADOS - deploy**
+Segue abaixo o passo-a-passo do processo de deploy do banco de dados no Clever Cloud. 
+
+passo 1: abrir espaço pessoal: Após realizar o login no Clever Cloud com uma conta existente no GitHub, vá até a página “personal space” na sua direita.
+
+passo 2: adicionar um complemento (banco de dados): Clique em Add-on, para adicionar um banco de dados no modelo MySQL.
+
+passo 3: selecionar o banco de dados: Selecione a opção MySQL e crie uma database.
+
+passo 4: selecionar a opção PHPMYADMIN: Ainda no personal space, selecione o banco de dados criados, e no canto superior da tela vão haver duas opções, naturalmente estará em Admin, selecione a opção PHPMyAdmin.
+
+passo 5: criar tabela e número de colunas : Desenvolva as tabela necessárias e escolha seu número de colunas.
+
+passo 6: editar tabela: Ao criar as tabelas, é necessário editá-las conforme as necessidades do mercado, e assim, configirar o banco de dados.
+
+passo 7: abrir página de admin: Após conclusão da tabela, você será direcionado para a página que contém as tabelas criadas. Após isso, vá para o campo 'Admin'. 
+
+passo 8: informações das credenciais do database: A página de Admin vai fornecer as principais informações do banco de dados para que possamos configurar dentro do 'db_config' do arquivo do mercado: Host, Database Name, User e Password.
+
+passo 9: criar nova conexão: Abra o MySQL Workbench e crie uma nova conexão. Nessa conexão criada, utilize as informações concedidas pela página de Admin no Clever Cloud, e preencha os espaços vazios.
+
+passo 10: confirmação por pop-up: Quando a conexão funcionar, aparecerá um pop-up para confirmar as informações mandadas. 
+
+passo 11: inserir credenciais do banco de dados no arquivo sql do projeto : Insira as informações de Host, user, password e db_name no arquivo db_config.js, substituindo as informações já existentes. 
+
+passo 12: testar conexão: Por fim, basta apenas testar a conexão do banco de dados no código existente. 
+
+**FRONT-END - deploy**
+Segue abaixo o passo-a-passo do processo de deploy da interface (front-end) no Vercel. 
+
+passo 1: Realize o login em alguma de suas contas: Selecione com qual plataforma deseja acessar seu projeto para realizar do Deploy no Vercel (GitHub, GitLab oy Bitbucket). Nesse caso, realizamos o login com o GitHub, pois nosso projeto estava salvo no repositório desse sistema. 
+
+passo 2: Clique em 'Add New...': Clique no botão ‘Add New...’ para adicionar seu projeto no Vercel.
+
+passo 3: Selecione 'Project': Selecione a opção ‘Project’ para importar o projeto que você quer realizar o Deploy.
+
+passo 4: Clique em 'Import': Clique no botão ‘Import’ referente ao projeto que deseja para realizar a importação dos seus dados para o Vercel.
+
+passo 5: Escreva o nome do seu projeto: Prencha o campo com o nome do projeto que você está importando.
+
+passo 6: Clique em 'Deploy': Clique no botão ‘Deploy’ para realizar o deploy do seu projeto.
